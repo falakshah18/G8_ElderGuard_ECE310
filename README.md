@@ -7,13 +7,11 @@ Wi-Fi CSI sensing system for fall detection in elderly care.
 
 ## What's in here
 
-- `Report/M1_Group8_Report.docx` — the M1 report (Ahmedabad University cover
-  template): problem statement, target user, product concept, value
+- `Report/M1_Group8_Report.docx` — the M1 report: problem statement, target user, product concept, value
   proposition, functional/non-functional requirements, SOTA anchor, wireless
   concepts mapping, evaluation metrics, technical progress, and timeline
   (with the official M1–M4 dates for the MVP category).
-- `Video/` — link to the recorded milestone walkthrough (add the link or file
-  here before submitting).
+- `Video/` — link to the recorded milestone walkthrough.
 - `Code/src/` — first working version of the CSI signal-processing pipeline
   (phase sanitization, bandpass filtering, Doppler spectrogram) plus a dataset
   loader stub. See `Code/src/README.md` for how to run it.
