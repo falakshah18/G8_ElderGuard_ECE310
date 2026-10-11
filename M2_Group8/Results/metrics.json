@@ -1,0 +1,67 @@
+{
+  "Threshold (amp-variance)": {
+    "accuracy": 0.5154,
+    "macro_f1": 0.4681,
+    "count_mae": 0.5899,
+    "confusion_matrix": [
+      [928, 12, 8],
+      [486, 175, 368],
+      [299, 239, 399]
+    ],
+    "n_windows": 2914
+  },
+  "Random Forest": {
+    "accuracy": 0.5333,
+    "macro_f1": 0.546,
+    "count_mae": 0.4681,
+    "confusion_matrix": [
+      [498, 448, 2],
+      [79, 638, 312],
+      [2, 517, 418]
+    ],
+    "n_windows": 2914
+  },
+  "MLP": {
+    "accuracy": 0.5113,
+    "macro_f1": 0.5225,
+    "count_mae": 0.4976,
+    "confusion_matrix": [
+      [524, 421, 3],
+      [119, 586, 324],
+      [23, 534, 380]
+    ],
+    "n_windows": 2914
+  },
+  "_feature_importance": [
+    0.174,
+    0.121,
+    0.035,
+    0.167,
+    0.146,
+    0.062,
+    0.076,
+    0.011,
+    0.036,
+    0.077,
+    0.093,
+    0.0
+  ],
+  "_feature_names": [
+    "amp_var_mean",
+    "amp_var_std",
+    "amp_mean",
+    "amp_range_mean",
+    "subcarrier_corr_mean",
+    "phase_var_mean",
+    "doppler_energy",
+    "doppler_peak_freq",
+    "doppler_centroid",
+    "rssi_mean",
+    "rssi_std",
+    "pdr"
+  ],
+  "_class_names": ["0_people", "1_person", "2_people"],
+  "_n_sessions": 9,
+  "_n_windows": 2914,
+  "_dataset": "RadioPoints WiFi-CrowdCounting (Intel 5300, 3 rooms, 0-2 people)"
+}
