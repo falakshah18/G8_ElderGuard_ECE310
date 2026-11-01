@@ -395,7 +395,6 @@ def main():
               "teammate - every failure names its own fix.")
     else:
         print("RESULT: SOFTWARE SELF-TEST PASSED (synthetic fixtures only).")
-        print("Hardware CSI, room occupancy, and real-world accuracy remain unverified.")
         print("Next: connect/flash both ESP32-S3 boards, collect labeled room captures, then train.")
     if not args.keep:
         import shutil

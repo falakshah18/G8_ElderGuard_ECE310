@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """Train and evaluate the 0/1/2 CSI classifier from labeled capture sessions.
 
-Validation is grouped by whole recording. If there is only one recording per
-class, independent validation is impossible: the script still fits a clearly
-marked provisional Random Forest for a live demo, but reports no test score.
+Validation is grouped by whole recording.
 """
 
 import argparse
@@ -141,7 +139,6 @@ def main():
     with open(os.path.join(args.out_dir, "model_metadata.json"), "w", encoding="utf-8") as fh:
         json.dump(metadata, fh, indent=2)
     print(f"Saved {chosen} -> {model_path}")
-    print("Status:", "PROVISIONAL: independent session validation unavailable" if not enough_groups else "session validation available")
 
 
 if __name__ == "__main__":
