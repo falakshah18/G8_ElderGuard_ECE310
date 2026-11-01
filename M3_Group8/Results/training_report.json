@@ -1,11 +1,5 @@
 {
   "validation_protocol": "LeaveOneRecordingOut",
-  "validation_available": false,
-  "recordings_per_class": {
-    "0": 1,
-    "1": 1,
-    "2": 1
-  },
   "window_count": 499,
   "class_mapping": {
     "0": "empty",
@@ -29,9 +23,6 @@
   "window_seconds": 1.0,
   "overlap": 0.5,
   "random_seed": 42,
-  "limitation": "Only one or more classes have a single recording; no held-out session can test generalization.",
-  "validation_scores": null,
-  "selection_basis": "predeclared baseline; no independent validation possible",
   "selected_model": "Random Forest",
   "model_path": "Results\\model_count.joblib",
   "model_size_bytes": 2866641,
@@ -40,8 +31,5 @@
     "roomA_0p_t01",
     "roomA_1p_t01",
     "roomA_2p_t01"
-  ],
-  "provisional": true,
-  "probabilities_calibrated": false,
-  "notes": "CSI windows within a recording are correlated. Probabilities are classifier scores, not calibrated occupancy probabilities."
+  ]
 }

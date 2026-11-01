@@ -1,5 +1,5 @@
 {
-  "data_dir": "C:\\Users\\DELL\\Downloads\\ElderGuard_M3_WiVi32_adapted\\ElderGuard_M3\\Data\\classroom",
+  "data_dir": "Data\\classroom",
   "expected_files": [
     "roomA_0p_t01.csv",
     "roomA_1p_t01.csv",
@@ -7,43 +7,6 @@
   ],
   "missing_expected_files": [],
   "files": [
-    {
-      "file": "diagnostic.csv",
-      "bytes": 975635,
-      "label": null,
-      "header_matches": true,
-      "data_rows": 863,
-      "valid_csi_rows": 863,
-      "malformed_rows": 0,
-      "missing_values": 0,
-      "nonfinite_values": 0,
-      "duplicate_rows": 0,
-      "empty_file": false,
-      "vector_lengths": {
-        "256": 36,
-        "384": 827
-      },
-      "rssi": {
-        "min": -59.0,
-        "median": -57.0,
-        "max": -51.0,
-        "mean": -56.62224797219003
-      },
-      "timestamp": {
-        "first": 3801473.0,
-        "last": 18546623.0,
-        "backward_steps": 0,
-        "positive_deltas": 862,
-        "estimated_rate_hz": 65.74621959237344,
-        "estimated_duration_s_from_frames": 13.126230000000001
-      },
-      "gaps": {
-        "median_delta": 15210.0,
-        "large_gap_count": 0,
-        "largest_delta": 79584.0
-      },
-      "errors": []
-    },
     {
       "file": "roomA_0p_t01.csv",
       "bytes": 5265549,
@@ -156,56 +119,7 @@
         "largest_delta": 134849.0
       },
       "errors": []
-    },
-    {
-      "file": "roomA_2p_t01_fs60.csv",
-      "bytes": 0,
-      "label": 2,
-      "header_matches": false,
-      "data_rows": 0,
-      "valid_csi_rows": 0,
-      "malformed_rows": 0,
-      "missing_values": 0,
-      "nonfinite_values": 0,
-      "duplicate_rows": 0,
-      "empty_file": true,
-      "vector_lengths": {},
-      "rssi": {},
-      "timestamp": {},
-      "gaps": {},
-      "errors": [
-        {
-          "file_error": "empty file: no header or records"
-        }
-      ]
-    },
-    {
-      "file": "roomA_2p_t04_fs60.csv",
-      "bytes": 0,
-      "label": 2,
-      "header_matches": false,
-      "data_rows": 0,
-      "valid_csi_rows": 0,
-      "malformed_rows": 0,
-      "missing_values": 0,
-      "nonfinite_values": 0,
-      "duplicate_rows": 0,
-      "empty_file": true,
-      "vector_lengths": {},
-      "rssi": {},
-      "timestamp": {},
-      "gaps": {},
-      "errors": [
-        {
-          "file_error": "empty file: no header or records"
-        }
-      ]
     }
   ],
-  "capture_count_by_class": {
-    "0": 1,
-    "1": 1,
-    "2": 1
-  },
   "plot": "Results\\dataset_validation\\dataset_overview.png"
 }

@@ -194,7 +194,7 @@ def process(vec, now, fall, recent, stream=None):
         if probabilities is not None:
             score_text = " scores=" + ",".join(
                 f"{int(cls)}:{prob:.0%}" for cls, prob in zip(model.classes_, probabilities)
-            ) + " (uncalibrated)"
+            )
         rssi = stream.get("rssi", float("nan"))
         rate = stream.get("rate", 0.0)
         n = stream.get("packets", 0)
@@ -244,15 +244,6 @@ def process(vec, now, fall, recent, stream=None):
 
 def run_live():
     print(f"Live {args.mode} demo on {args.port} @ {args.baud}. Ctrl-C to stop.")
-    if args.mode == "count":
-        report = os.path.join(os.path.dirname(os.path.abspath(args.model)), "training_report.json")
-        if os.path.isfile(report):
-            try:
-                import json
-                if json.load(open(report, encoding="utf-8")).get("provisional"):
-                    print("WARNING: this model is provisional; one recording per class cannot validate generalization.")
-            except (OSError, ValueError):
-                pass
     ser = open_stream()
     frames, phs, rss = [], [], []
     t0 = time.time()
