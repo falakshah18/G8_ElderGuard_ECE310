@@ -1,0 +1,211 @@
+{
+  "data_dir": "C:\\Users\\DELL\\Downloads\\ElderGuard_M3_WiVi32_adapted\\ElderGuard_M3\\Data\\classroom",
+  "expected_files": [
+    "roomA_0p_t01.csv",
+    "roomA_1p_t01.csv",
+    "roomA_2p_t01.csv"
+  ],
+  "missing_expected_files": [],
+  "files": [
+    {
+      "file": "diagnostic.csv",
+      "bytes": 975635,
+      "label": null,
+      "header_matches": true,
+      "data_rows": 863,
+      "valid_csi_rows": 863,
+      "malformed_rows": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "duplicate_rows": 0,
+      "empty_file": false,
+      "vector_lengths": {
+        "256": 36,
+        "384": 827
+      },
+      "rssi": {
+        "min": -59.0,
+        "median": -57.0,
+        "max": -51.0,
+        "mean": -56.62224797219003
+      },
+      "timestamp": {
+        "first": 3801473.0,
+        "last": 18546623.0,
+        "backward_steps": 0,
+        "positive_deltas": 862,
+        "estimated_rate_hz": 65.74621959237344,
+        "estimated_duration_s_from_frames": 13.126230000000001
+      },
+      "gaps": {
+        "median_delta": 15210.0,
+        "large_gap_count": 0,
+        "largest_delta": 79584.0
+      },
+      "errors": []
+    },
+    {
+      "file": "roomA_0p_t01.csv",
+      "bytes": 5265549,
+      "label": 0,
+      "header_matches": true,
+      "data_rows": 4578,
+      "valid_csi_rows": 4578,
+      "malformed_rows": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "duplicate_rows": 0,
+      "empty_file": false,
+      "vector_lengths": {
+        "128": 51,
+        "256": 397,
+        "384": 4130
+      },
+      "rssi": {
+        "min": -46.0,
+        "median": -44.0,
+        "max": -39.0,
+        "mean": -43.521625163827
+      },
+      "timestamp": {
+        "first": 3794510.0,
+        "last": 7146398.0,
+        "backward_steps": 2,
+        "positive_deltas": 4575,
+        "estimated_rate_hz": 62.38303181534623,
+        "estimated_duration_s_from_frames": 73.38534
+      },
+      "gaps": {
+        "median_delta": 16030.0,
+        "large_gap_count": 21,
+        "largest_delta": 220243.0
+      },
+      "errors": []
+    },
+    {
+      "file": "roomA_1p_t01.csv",
+      "bytes": 6754224,
+      "label": 1,
+      "header_matches": true,
+      "data_rows": 5808,
+      "valid_csi_rows": 5808,
+      "malformed_rows": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "duplicate_rows": 0,
+      "empty_file": false,
+      "vector_lengths": {
+        "256": 465,
+        "384": 5343
+      },
+      "rssi": {
+        "min": -65.0,
+        "median": -48.0,
+        "max": -37.0,
+        "mean": -48.39066804407714
+      },
+      "timestamp": {
+        "first": 3799226.0,
+        "last": 43400988.0,
+        "backward_steps": 1,
+        "positive_deltas": 5806,
+        "estimated_rate_hz": 66.17257808364214,
+        "estimated_duration_s_from_frames": 87.77049600000001
+      },
+      "gaps": {
+        "median_delta": 15112.0,
+        "large_gap_count": 13,
+        "largest_delta": 1898522.0
+      },
+      "errors": []
+    },
+    {
+      "file": "roomA_2p_t01.csv",
+      "bytes": 6428465,
+      "label": 2,
+      "header_matches": true,
+      "data_rows": 5563,
+      "valid_csi_rows": 5563,
+      "malformed_rows": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "duplicate_rows": 0,
+      "empty_file": false,
+      "vector_lengths": {
+        "128": 26,
+        "256": 395,
+        "384": 5142
+      },
+      "rssi": {
+        "min": -67.0,
+        "median": -49.0,
+        "max": -38.0,
+        "mean": -49.55222002516628
+      },
+      "timestamp": {
+        "first": 3776869.0,
+        "last": 37220302.0,
+        "backward_steps": 2,
+        "positive_deltas": 5560,
+        "estimated_rate_hz": 61.862047633776676,
+        "estimated_duration_s_from_frames": 89.925895
+      },
+      "gaps": {
+        "median_delta": 16165.0,
+        "large_gap_count": 5,
+        "largest_delta": 134849.0
+      },
+      "errors": []
+    },
+    {
+      "file": "roomA_2p_t01_fs60.csv",
+      "bytes": 0,
+      "label": 2,
+      "header_matches": false,
+      "data_rows": 0,
+      "valid_csi_rows": 0,
+      "malformed_rows": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "duplicate_rows": 0,
+      "empty_file": true,
+      "vector_lengths": {},
+      "rssi": {},
+      "timestamp": {},
+      "gaps": {},
+      "errors": [
+        {
+          "file_error": "empty file: no header or records"
+        }
+      ]
+    },
+    {
+      "file": "roomA_2p_t04_fs60.csv",
+      "bytes": 0,
+      "label": 2,
+      "header_matches": false,
+      "data_rows": 0,
+      "valid_csi_rows": 0,
+      "malformed_rows": 0,
+      "missing_values": 0,
+      "nonfinite_values": 0,
+      "duplicate_rows": 0,
+      "empty_file": true,
+      "vector_lengths": {},
+      "rssi": {},
+      "timestamp": {},
+      "gaps": {},
+      "errors": [
+        {
+          "file_error": "empty file: no header or records"
+        }
+      ]
+    }
+  ],
+  "capture_count_by_class": {
+    "0": 1,
+    "1": 1,
+    "2": 1
+  },
+  "plot": "Results\\dataset_validation\\dataset_overview.png"
+}
