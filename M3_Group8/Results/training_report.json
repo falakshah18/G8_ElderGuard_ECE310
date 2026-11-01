@@ -1,0 +1,47 @@
+{
+  "validation_protocol": "LeaveOneRecordingOut",
+  "validation_available": false,
+  "recordings_per_class": {
+    "0": 1,
+    "1": 1,
+    "2": 1
+  },
+  "window_count": 499,
+  "class_mapping": {
+    "0": "empty",
+    "1": "one person",
+    "2": "two people"
+  },
+  "feature_names": [
+    "amp_var_mean",
+    "amp_var_std",
+    "amp_mean",
+    "amp_range_mean",
+    "subcarrier_corr_mean",
+    "phase_var_mean",
+    "doppler_energy",
+    "doppler_peak_freq",
+    "doppler_centroid",
+    "rssi_mean",
+    "rssi_std",
+    "pdr"
+  ],
+  "window_seconds": 1.0,
+  "overlap": 0.5,
+  "random_seed": 42,
+  "limitation": "Only one or more classes have a single recording; no held-out session can test generalization.",
+  "validation_scores": null,
+  "selection_basis": "predeclared baseline; no independent validation possible",
+  "selected_model": "Random Forest",
+  "model_path": "Results\\model_count.joblib",
+  "model_size_bytes": 2866641,
+  "training_window_count": 499,
+  "training_recordings": [
+    "roomA_0p_t01",
+    "roomA_1p_t01",
+    "roomA_2p_t01"
+  ],
+  "provisional": true,
+  "probabilities_calibrated": false,
+  "notes": "CSI windows within a recording are correlated. Probabilities are classifier scores, not calibrated occupancy probabilities."
+}
