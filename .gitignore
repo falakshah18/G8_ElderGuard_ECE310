@@ -9,3 +9,6 @@ Results_own/
 
 # Private working files (not part of the submission)
 REVIEW_PROMPT_M3.md
+
+# Local report backup (never commit)
+_backup_*.pdf

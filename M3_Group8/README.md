@@ -22,7 +22,7 @@ The CSI field is a whitespace-separated signed-byte vector encoded as interleave
 Open this folder in VS Code and use its PowerShell terminal:
 
 ```powershell
-cd "C:\Users\DELL\Downloads\ElderGuard_M3_WiVi32_adapted\ElderGuard_M3"
+cd "C:\Users\DELL\Downloads\ElderGuard_M3"
 py -3.11 -m pip install -r requirements.txt
 ```
 
