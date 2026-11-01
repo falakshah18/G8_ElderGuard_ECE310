@@ -1,0 +1,11 @@
+# Python build artifacts
+__pycache__/
+*.pyc
+
+# Self-test and tool scratch output
+selftest_tmp/
+fake_captures/
+Results_own/
+
+# Private working files (not part of the submission)
+REVIEW_PROMPT_M3.md

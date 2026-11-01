@@ -1,5 +1,5 @@
 {
-  "data_dir": "Data\\classroom",
+  "data_dir": "C:\\Users\\alpes\\G8_ElderGuard_ECE310\\M3_Group8\\Data\\classroom",
   "expected_files": [
     "roomA_0p_t01.csv",
     "roomA_1p_t01.csv",
@@ -9,7 +9,7 @@
   "files": [
     {
       "file": "roomA_0p_t01.csv",
-      "bytes": 5265549,
+      "bytes": 5270128,
       "label": 0,
       "header_matches": true,
       "data_rows": 4578,
@@ -47,7 +47,7 @@
     },
     {
       "file": "roomA_1p_t01.csv",
-      "bytes": 6754224,
+      "bytes": 6760033,
       "label": 1,
       "header_matches": true,
       "data_rows": 5808,
@@ -84,7 +84,7 @@
     },
     {
       "file": "roomA_2p_t01.csv",
-      "bytes": 6428465,
+      "bytes": 6434029,
       "label": 2,
       "header_matches": true,
       "data_rows": 5563,
@@ -121,5 +121,10 @@
       "errors": []
     }
   ],
+  "capture_count_by_class": {
+    "0": 1,
+    "1": 1,
+    "2": 1
+  },
   "plot": "Results\\dataset_validation\\dataset_overview.png"
 }

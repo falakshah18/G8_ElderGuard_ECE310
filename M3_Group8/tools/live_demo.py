@@ -68,7 +68,7 @@ model = None
 if args.mode == "count":
     import joblib
     if not os.path.exists(args.model):
-        raise SystemExit(f"Train a model first: run_own.py --save-model {args.model}")
+        raise SystemExit(f"Train a model first: py -3.11 tools\\train_model.py --out-dir Results")
     model = joblib.load(args.model)
 
 

@@ -1,0 +1,15 @@
+{
+  "model": "Random Forest",
+  "classes": [
+    0,
+    1,
+    2
+  ],
+  "provisional": true,
+  "recordings_per_class": {
+    "0": 1,
+    "1": 1,
+    "2": 1
+  },
+  "dataset_dir": "C:\\Users\\alpes\\G8_ElderGuard_ECE310\\M3_Group8\\Data\\classroom"
+}

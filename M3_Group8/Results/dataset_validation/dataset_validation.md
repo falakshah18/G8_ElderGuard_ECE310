@@ -1,6 +1,6 @@
 # ElderGuard dataset validation
 
-Data folder: `Data\classroom`
+Data folder: `C:\Users\alpes\G8_ElderGuard_ECE310\M3_Group8\Data\classroom`
 
 CSV files found: 3
 
@@ -14,5 +14,6 @@ CSV files found: 3
 
 - All expected filenames found.
 
+Labeled capture counts by class: `{'0': 1, '1': 1, '2': 1}`.
 CSI vector lengths count signed-byte values as serialized; an even-length vector is required for I/Q pairing.
-The validator does not alter or discard source records. Timestamp gap detection uses the device counter and a conservative heuristic.
+The validator does not alter or discard source records. Timestamp gap detection uses the device counter and a conservative heuristic; verify suspicious gaps against the raw capture and measured rate.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""
+r"""
 ElderGuard SELF-TEST - run this before you touch the boards.
 
 It checks, in order, that:
@@ -43,7 +43,7 @@ REQUIRED = [
     "tools/make_fake_captures.py", "tools/selftest.py",
     "firmware/tx_esp32_ap/tx_esp32_ap.ino",
     "firmware/rx_esp32_csi/rx_esp32_csi.ino",
-    "requirements.txt", "START_HERE.md", "TALLY_SHEET.md", "demo_layout.png",
+    "requirements.txt", "README.md", "Report", "demo",
     "Data/classroom", "Results",
 ]
 
