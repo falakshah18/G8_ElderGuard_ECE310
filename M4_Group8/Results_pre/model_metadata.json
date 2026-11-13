@@ -1,0 +1,15 @@
+{
+  "model": "Logistic Regression",
+  "classes": [
+    0,
+    1,
+    2
+  ],
+  "provisional": false,
+  "recordings_per_class": {
+    "0": 4,
+    "1": 4,
+    "2": 4
+  },
+  "dataset_dir": "C:\\Users\\alpes\\G8_ElderGuard_ECE310\\M4_Group8\\Data\\classroom"
+}

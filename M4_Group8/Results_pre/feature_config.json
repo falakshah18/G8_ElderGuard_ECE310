@@ -1,0 +1,24 @@
+{
+  "features": [
+    "amp_var_mean",
+    "amp_var_std",
+    "amp_mean",
+    "amp_range_mean",
+    "subcarrier_corr_mean",
+    "phase_var_mean",
+    "doppler_energy",
+    "doppler_peak_freq",
+    "doppler_centroid",
+    "rssi_mean",
+    "rssi_std",
+    "pdr",
+    "eig_amp1",
+    "eig_amp2",
+    "eig_effrank",
+    "doppler_peak_spread"
+  ],
+  "window_seconds": 1.0,
+  "overlap": 0.5,
+  "preprocessing": "src.preprocess.preprocess_session then src.features.featurize_session",
+  "sample_rate_source": "ESP32 receiver timestamp median interval when available; filename tag fallback"
+}
