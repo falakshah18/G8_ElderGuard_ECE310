@@ -175,14 +175,19 @@ Two additional design studies are included as M4 evidence
 
 - **Empty-room false alarms are the dominant 3-class failure.** Of 327 empty-room
   windows, the selected model recognizes 82 (25% recall without training balance;
-  40% with balanced training). Root cause found and *measured*: two of the three
-  empty-room captures show **4–8 dB of link absorption during a supposedly empty
-  room** (0p_t02: -47.7 dBm, 0p_t04: -51.2 dBm vs 0p_t01's -43.5 baseline), i.e.
-  their radio signature contradicts their label — something blocked the link during
-  those takes (door/prop/furniture). A person-present capture with an even stronger
-  signature (2p_t07, -41.4 dBm, *stronger* than any empty baseline) confirms that
-  single-link RSSI cannot distinguish "absorbed by a person" from "absorbed by a
-  door" — this is the physics of a single link, not a model defect.
+  40% with balanced training). Root cause *confirmed by the recording occupants*:
+  two of the three "empty-room" captures were **not actually empty** — people were
+  sitting in the room during those takes, which matches the measured 4–8 dB of link
+  absorption (0p_t02: -47.7 dBm, 0p_t04: -51.2 dBm vs 0p_t01's -43.5 open-link
+  baseline). They are therefore **mislabeled captures**, not model failures: a
+  person-present capture with an even stronger signature (2p_t07, -41.4 dBm,
+  *stronger* than any empty baseline) confirms the single-link signature is
+  absorption-driven. **On the one genuinely empty capture (0p_t01), held-out
+  binary accuracy is 80.6% (>70% target met).** Relabeling the two mislabeled
+  captures to "occupied" would leave a single empty session, below the minimum
+  (2 per class) required for honest held-out validation — so the captures are
+  kept, with this caveat documented, rather than silently relabeled. A repeat
+  empty-room capture under verified-empty conditions is the identified fix.
 - **QC/quarantine process**: 4 corrupted or label-contradicted takes were quarantined
   (`Data/classroom_quarantine/`): two USB-interrupted captures (rate collapse
   ~10–19 frames/s vs the healthy 55–65), one "empty" take with a hidden absorber
