@@ -1,0 +1,104 @@
+[
+  {
+    "file": "roomA_0p_t01.csv",
+    "label": 0,
+    "accuracy": 0.4520547945205479,
+    "windows": 146
+  },
+  {
+    "file": "roomA_0p_t02.csv",
+    "label": 0,
+    "accuracy": 0.1935483870967742,
+    "windows": 124
+  },
+  {
+    "file": "roomA_0p_t04.csv",
+    "label": 0,
+    "accuracy": 0.0,
+    "windows": 57
+  },
+  {
+    "file": "roomA_1p_t01.csv",
+    "label": 1,
+    "accuracy": 0.4057142857142857,
+    "windows": 175
+  },
+  {
+    "file": "roomA_1p_t02.csv",
+    "label": 1,
+    "accuracy": 0.5178571428571429,
+    "windows": 56
+  },
+  {
+    "file": "roomA_1p_t03.csv",
+    "label": 1,
+    "accuracy": 0.5866666666666667,
+    "windows": 75
+  },
+  {
+    "file": "roomA_1p_t04.csv",
+    "label": 1,
+    "accuracy": 0.1076923076923077,
+    "windows": 65
+  },
+  {
+    "file": "roomA_1p_t05.csv",
+    "label": 1,
+    "accuracy": 0.019417475728155338,
+    "windows": 206
+  },
+  {
+    "file": "roomA_2p_t01.csv",
+    "label": 2,
+    "accuracy": 0.8932584269662921,
+    "windows": 178
+  },
+  {
+    "file": "roomA_2p_t02.csv",
+    "label": 2,
+    "accuracy": 0.9625,
+    "windows": 80
+  },
+  {
+    "file": "roomA_2p_t04.csv",
+    "label": 2,
+    "accuracy": 0.4819277108433735,
+    "windows": 83
+  },
+  {
+    "file": "roomA_2p_t07.csv",
+    "label": 2,
+    "accuracy": 0.3783783783783784,
+    "windows": 74
+  },
+  {
+    "file": "roomA_2p_t08.csv",
+    "label": 2,
+    "accuracy": 0.5,
+    "windows": 38
+  },
+  {
+    "file": "roomA_2p_t09.csv",
+    "label": 2,
+    "accuracy": 0.9378531073446328,
+    "windows": 177
+  },
+  {
+    "file": "roomA_2p_t10.csv",
+    "label": 2,
+    "accuracy": 0.928,
+    "windows": 125
+  },
+  {
+    "file": "roomA_2p_t11.csv",
+    "label": 2,
+    "accuracy": 0.8076923076923077,
+    "windows": 182
+  },
+  {
+    "file": "roomA_2p_t12.csv",
+    "label": 2,
+    "accuracy": 0.9393939393939394,
+    "windows": 33
+  }
+]

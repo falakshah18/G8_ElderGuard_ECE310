@@ -1,0 +1,28 @@
+{
+  "protocol": "leave_one_recording_out",
+  "accuracy": 0.5485592315901814,
+  "macro_f1": 0.4657144758086907,
+  "confusion_matrix": [
+    [
+      90,
+      71,
+      166
+    ],
+    [
+      17,
+      158,
+      402
+    ],
+    [
+      13,
+      177,
+      780
+    ]
+  ],
+  "recordings_per_class": {
+    "0": 3,
+    "1": 5,
+    "2": 9
+  },
+  "test_windows": 1874
+}

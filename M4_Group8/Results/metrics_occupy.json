@@ -1,0 +1,117 @@
+{
+  "Threshold (amp-variance)": {
+    "accuracy": 0.8511326860841424,
+    "macro_f1": 0.45940299389985517,
+    "count_mae": 0.1488673139158576,
+    "confusion_matrix": [
+      [
+        59,
+        102,
+        0
+      ],
+      [
+        34,
+        730,
+        2
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "n_windows": 927
+  },
+  "Random Forest": {
+    "accuracy": 0.8360302049622438,
+    "macro_f1": 0.5624642901502919,
+    "count_mae": 0.16396979503775622,
+    "confusion_matrix": [
+      [
+        21,
+        140
+      ],
+      [
+        12,
+        754
+      ]
+    ],
+    "n_windows": 927
+  },
+  "Gradient Boosting": {
+    "accuracy": 0.8576051779935275,
+    "macro_f1": 0.6395631067961165,
+    "count_mae": 0.1423948220064725,
+    "confusion_matrix": [
+      [
+        37,
+        124
+      ],
+      [
+        8,
+        758
+      ]
+    ],
+    "n_windows": 927
+  },
+  "MLP": {
+    "accuracy": 0.889967637540453,
+    "macro_f1": 0.7789141414141414,
+    "count_mae": 0.11003236245954692,
+    "confusion_matrix": [
+      [
+        84,
+        77
+      ],
+      [
+        25,
+        741
+      ]
+    ],
+    "n_windows": 927
+  },
+  "_feature_importance": [
+    0.054126636261896406,
+    0.02164684299181148,
+    0.009744127884306454,
+    0.03394253955463038,
+    0.015607033485036741,
+    0.1157347625684443,
+    0.016376955928086738,
+    0.022938627821288218,
+    0.21659269423045316,
+    0.09757928619720586,
+    0.15118166313267634,
+    0.0,
+    0.01343100666156183,
+    0.08466528601826274,
+    0.027830052916864988,
+    0.11860248434747427
+  ],
+  "_class_names": [
+    "0_people",
+    "1_person",
+    "2_people"
+  ],
+  "_n_sessions": 17,
+  "_feature_names": [
+    "amp_var_mean",
+    "amp_var_std",
+    "amp_mean",
+    "amp_range_mean",
+    "subcarrier_corr_mean",
+    "phase_var_mean",
+    "doppler_energy",
+    "doppler_peak_freq",
+    "doppler_centroid",
+    "rssi_mean",
+    "rssi_std",
+    "pdr",
+    "eig_amp1",
+    "eig_amp2",
+    "eig_effrank",
+    "doppler_peak_spread"
+  ],
+  "_dataset": "own-hardware ESP32 captures (17 sessions)",
+  "_n_windows": 927
+}

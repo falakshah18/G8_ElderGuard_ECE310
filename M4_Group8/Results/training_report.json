@@ -1,0 +1,1060 @@
+{
+  "validation_protocol": "LeaveOneRecordingOut",
+  "validation_available": true,
+  "recordings_per_class": {
+    "0": 3,
+    "1": 5,
+    "2": 9
+  },
+  "window_count": 1874,
+  "class_mapping": {
+    "0": "empty",
+    "1": "one person",
+    "2": "two people"
+  },
+  "feature_names": [
+    "amp_var_mean",
+    "amp_var_std",
+    "amp_mean",
+    "amp_range_mean",
+    "subcarrier_corr_mean",
+    "phase_var_mean",
+    "doppler_energy",
+    "doppler_peak_freq",
+    "doppler_centroid",
+    "rssi_mean",
+    "rssi_std",
+    "pdr",
+    "eig_amp1",
+    "eig_amp2",
+    "eig_effrank",
+    "doppler_peak_spread"
+  ],
+  "window_seconds": 1.0,
+  "overlap": 0.5,
+  "random_seed": 42,
+  "session_baseline_normalization": {
+    "features": [
+      "rssi_mean"
+    ],
+    "applied": true,
+    "rationale": "rssi_mean is expressed relative to the median link level of its own recording (per-session calibration baseline). Absolute RSSI encodes rig geometry (board positions / gains), which changed between recording batches; the deviation is the physical presence signal and mirrors the startup link calibration the deployed system performs."
+  },
+  "limitation": null,
+  "validation_scores": {
+    "Dummy most_frequent": {
+      "accuracy": 0.5176093916755603,
+      "macro_f1": 0.2273792780121894,
+      "confusion_matrix": [
+        [
+          0,
+          0,
+          327
+        ],
+        [
+          0,
+          0,
+          577
+        ],
+        [
+          0,
+          0,
+          970
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.5176093916755603,
+          "recall": 1.0,
+          "f1-score": 0.6821378340365682,
+          "support": 970.0
+        },
+        "accuracy": 0.5176093916755603,
+        "macro avg": {
+          "precision": 0.17253646389185343,
+          "recall": 0.3333333333333333,
+          "f1-score": 0.2273792780121894,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.2679194823507436,
+          "recall": 0.5176093916755603,
+          "f1-score": 0.3530809493145524,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 0.0004583000009006355,
+          "inference_ms_per_window": 0.0004787671308779502
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 0.0002702999991015531,
+          "inference_ms_per_window": 0.0003572580563711874
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 0.0002275000006193295,
+          "inference_ms_per_window": 0.0006508772346199278
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.00021149999884073623,
+          "inference_ms_per_window": 0.0002102857147942164
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 0.00021500000002561137,
+          "inference_ms_per_window": 0.0005660713863367814
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 0.00021049999850220047,
+          "inference_ms_per_window": 0.0004400000034365803
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.0002106000029016286,
+          "inference_ms_per_window": 0.0005153846219540215
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.00020559999757097103,
+          "inference_ms_per_window": 0.00021553399703619117
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 0.0002114000017172657,
+          "inference_ms_per_window": 0.00018876405162056593
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.0003524000021570828,
+          "inference_ms_per_window": 0.00040625000110594556
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.00016519999917363748,
+          "inference_ms_per_window": 0.00033373493877946435
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 0.0001703000016277656,
+          "inference_ms_per_window": 0.0003675675641814549
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 0.0001602000011189375,
+          "inference_ms_per_window": 0.0006368421676789263
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.00014570000348612666,
+          "inference_ms_per_window": 0.00014915254764853435
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 0.00014899999951012433,
+          "inference_ms_per_window": 0.00021520000882446766
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 0.00015619999976479448,
+          "inference_ms_per_window": 0.00014010989756430857
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 0.00015010000061010942,
+          "inference_ms_per_window": 0.0007212121007879349
+        }
+      ]
+    },
+    "Random Forest": {
+      "accuracy": 0.5485592315901814,
+      "macro_f1": 0.4657144758086907,
+      "confusion_matrix": [
+        [
+          90,
+          71,
+          166
+        ],
+        [
+          17,
+          158,
+          402
+        ],
+        [
+          13,
+          177,
+          780
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.75,
+          "recall": 0.27522935779816515,
+          "f1-score": 0.40268456375838924,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.3891625615763547,
+          "recall": 0.2738301559792028,
+          "f1-score": 0.3214649033570702,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.5786350148367952,
+          "recall": 0.8041237113402062,
+          "f1-score": 0.6729939603106126,
+          "support": 970.0
+        },
+        "accuracy": 0.5485592315901814,
+        "macro avg": {
+          "precision": 0.5725991921377167,
+          "recall": 0.4510610750391914,
+          "f1-score": 0.4657144758086907,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.5501989127114452,
+          "recall": 0.5485592315901814,
+          "f1-score": 0.5175919119996355,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 0.8922201000023051,
+          "inference_ms_per_window": 0.3949417808156521
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 0.856517399999575,
+          "inference_ms_per_window": 0.3785112903349199
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 0.9428580000021611,
+          "inference_ms_per_window": 0.6243263157733038
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.8298294000014721,
+          "inference_ms_per_window": 0.20724457141893385
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 0.8578573000013421,
+          "inference_ms_per_window": 0.6122821428756912
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 0.8908312999992631,
+          "inference_ms_per_window": 0.6175266666590081
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.9327450999990106,
+          "inference_ms_per_window": 0.7076199999853718
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.8403326000006928,
+          "inference_ms_per_window": 0.29568543690296334
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 0.8586753999989014,
+          "inference_ms_per_window": 0.1950758427013303
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.8674879999998666,
+          "inference_ms_per_window": 0.428970000029949
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.823714199999813,
+          "inference_ms_per_window": 0.5590144578326797
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 0.8571747999994841,
+          "inference_ms_per_window": 0.6367040540853113
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 0.9386286000008113,
+          "inference_ms_per_window": 0.9797131579513294
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.9008194999987609,
+          "inference_ms_per_window": 0.19370621467935906
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 0.8604035999996995,
+          "inference_ms_per_window": 0.28026880000834353
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 0.9461515999973926,
+          "inference_ms_per_window": 0.41822637363761067
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 1.0458876000011514,
+          "inference_ms_per_window": 1.1370878788566738
+        }
+      ]
+    },
+    "Extra Trees": {
+      "accuracy": 0.4989327641408751,
+      "macro_f1": 0.41077427487736146,
+      "confusion_matrix": [
+        [
+          111,
+          69,
+          147
+        ],
+        [
+          31,
+          64,
+          482
+        ],
+        [
+          31,
+          179,
+          760
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.6416184971098265,
+          "recall": 0.3394495412844037,
+          "f1-score": 0.444,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.20512820512820512,
+          "recall": 0.11091854419410745,
+          "f1-score": 0.1439820022497188,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.5471562275017998,
+          "recall": 0.7835051546391752,
+          "f1-score": 0.6443408223823655,
+          "support": 970.0
+        },
+        "accuracy": 0.4989327641408751,
+        "macro avg": {
+          "precision": 0.4646343099132772,
+          "recall": 0.4112910800392288,
+          "f1-score": 0.41077427487736146,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.4583296497281929,
+          "recall": 0.4989327641408751,
+          "f1-score": 0.4553234861307269,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 0.5471029999971506,
+          "inference_ms_per_window": 0.5171568493146692
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 0.6553272000019206,
+          "inference_ms_per_window": 0.47642419353759313
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 0.6527965000022959,
+          "inference_ms_per_window": 1.066878947376768
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.5341223000032187,
+          "inference_ms_per_window": 0.25565314287502716
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 0.5284748999984004,
+          "inference_ms_per_window": 1.3092642857372994
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 0.7454351999986102,
+          "inference_ms_per_window": 0.46437466667460586
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.6495551999978488,
+          "inference_ms_per_window": 0.9220200000317373
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.4644339000005857,
+          "inference_ms_per_window": 0.22093398058255773
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 0.5177050999991479,
+          "inference_ms_per_window": 0.3396337078504913
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.5255800999984785,
+          "inference_ms_per_window": 0.5787250000139466
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.43917220000003,
+          "inference_ms_per_window": 0.41973855423934603
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 0.46356790000209,
+          "inference_ms_per_window": 0.46737972971223407
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 0.4850317000018549,
+          "inference_ms_per_window": 0.8837657895032622
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.4790632000003825,
+          "inference_ms_per_window": 0.20109717513412884
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 0.5593547999997099,
+          "inference_ms_per_window": 0.953215999994427
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 0.8327704000002996,
+          "inference_ms_per_window": 0.44750659341574006
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 0.6457267000005231,
+          "inference_ms_per_window": 1.8285060606572325
+        }
+      ]
+    },
+    "SVM RBF": {
+      "accuracy": 0.5293489861259338,
+      "macro_f1": 0.519326821637746,
+      "confusion_matrix": [
+        [
+          252,
+          45,
+          30
+        ],
+        [
+          71,
+          143,
+          363
+        ],
+        [
+          98,
+          275,
+          597
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.5985748218527316,
+          "recall": 0.7706422018348624,
+          "f1-score": 0.6737967914438503,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.30885529157667385,
+          "recall": 0.24783362218370883,
+          "f1-score": 0.275,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.603030303030303,
+          "recall": 0.6154639175257732,
+          "f1-score": 0.6091836734693877,
+          "support": 970.0
+        },
+        "accuracy": 0.5293489861259338,
+        "macro avg": {
+          "precision": 0.5034868054865694,
+          "recall": 0.5446465805147814,
+          "f1-score": 0.519326821637746,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.5116770885405432,
+          "recall": 0.5293489861259338,
+          "f1-score": 0.5175638815728096,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 0.5281027000019094,
+          "inference_ms_per_window": 0.08845136987586819
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 0.4456549000024097,
+          "inference_ms_per_window": 0.1202999999863565
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 0.545844100000977,
+          "inference_ms_per_window": 0.08251754383979316
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.3997979999985546,
+          "inference_ms_per_window": 0.0980714285729586
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 0.5065147999994224,
+          "inference_ms_per_window": 0.10428571424979184
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 0.5219721000030404,
+          "inference_ms_per_window": 0.10233733332521903
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.5823909000027925,
+          "inference_ms_per_window": 0.08939846156863496
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.3528699999988021,
+          "inference_ms_per_window": 0.07764611649849719
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 0.4123738999987836,
+          "inference_ms_per_window": 0.08766235954722054
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.5292103000028874,
+          "inference_ms_per_window": 0.08435750000899134
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.5196426000002248,
+          "inference_ms_per_window": 0.13307831324643948
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 0.6681462999986252,
+          "inference_ms_per_window": 0.1365945946245857
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 0.6358757999987574,
+          "inference_ms_per_window": 0.13859736846873266
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.4292261000009603,
+          "inference_ms_per_window": 0.08893841808108681
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 0.486538199998904,
+          "inference_ms_per_window": 0.0866327999974601
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 0.3937143000002834,
+          "inference_ms_per_window": 0.09382087913623903
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 0.5608455000001413,
+          "inference_ms_per_window": 0.1469454546167981
+        }
+      ]
+    },
+    "Logistic Regression": {
+      "accuracy": 0.4311632870864461,
+      "macro_f1": 0.40954623048811634,
+      "confusion_matrix": [
+        [
+          186,
+          112,
+          29
+        ],
+        [
+          121,
+          96,
+          360
+        ],
+        [
+          112,
+          332,
+          526
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.4439140811455847,
+          "recall": 0.5688073394495413,
+          "f1-score": 0.49865951742627346,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.17777777777777778,
+          "recall": 0.1663778162911612,
+          "f1-score": 0.1718889883616831,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.5748633879781421,
+          "recall": 0.5422680412371134,
+          "f1-score": 0.5580901856763926,
+          "support": 970.0
+        },
+        "accuracy": 0.4311632870864461,
+        "macro avg": {
+          "precision": 0.3988517489671682,
+          "recall": 0.4258177323259386,
+          "f1-score": 0.40954623048811634,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.4297519576580479,
+          "recall": 0.4311632870864461,
+          "f1-score": 0.4288095456719228,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 0.032951900000625756,
+          "inference_ms_per_window": 0.0018554794522758242
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 0.035412700002780184,
+          "inference_ms_per_window": 0.002112096779221188
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 0.030831000000034692,
+          "inference_ms_per_window": 0.0046210526514251045
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.027815599998575635,
+          "inference_ms_per_window": 0.0015514285769313574
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 0.03014939999775379,
+          "inference_ms_per_window": 0.004889285719400505
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 0.03518149999945308,
+          "inference_ms_per_window": 0.0035826666377640017
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.037389500001154374,
+          "inference_ms_per_window": 0.006613846142919591
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.03346349999992526,
+          "inference_ms_per_window": 0.001360679606062776
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 0.04202879999866127,
+          "inference_ms_per_window": 0.0026904494456523047
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.04682229999889387,
+          "inference_ms_per_window": 0.003632500011008233
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.03858840000248165,
+          "inference_ms_per_window": 0.0048939759123520585
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 0.04078789999766741,
+          "inference_ms_per_window": 0.004686486480184956
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 0.06798810000327649,
+          "inference_ms_per_window": 0.006699999989665996
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.040033799999946496,
+          "inference_ms_per_window": 0.0018655367257760175
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 0.04283759999816539,
+          "inference_ms_per_window": 0.0025631999887991697
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 0.04300330000114627,
+          "inference_ms_per_window": 0.0015071428596466821
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 0.04242140000133077,
+          "inference_ms_per_window": 0.007781818236584182
+        }
+      ]
+    },
+    "Gradient Boosting": {
+      "accuracy": 0.6291355389541089,
+      "macro_f1": 0.5327496030692526,
+      "confusion_matrix": [
+        [
+          82,
+          132,
+          113
+        ],
+        [
+          26,
+          252,
+          299
+        ],
+        [
+          4,
+          121,
+          845
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.7321428571428571,
+          "recall": 0.25076452599388377,
+          "f1-score": 0.3735763097949886,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.499009900990099,
+          "recall": 0.43674176776429807,
+          "f1-score": 0.4658040665434381,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.6722354813046937,
+          "recall": 0.8711340206185567,
+          "f1-score": 0.7588684328693309,
+          "support": 970.0
+        },
+        "accuracy": 0.6291355389541089,
+        "macro avg": {
+          "precision": 0.6344627464792166,
+          "recall": 0.5195467714589128,
+          "f1-score": 0.5327496030692526,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.6293531718370088,
+          "recall": 0.6291355389541089,
+          "f1-score": 0.6014038311535626,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 2.5298320000001695,
+          "inference_ms_per_window": 0.06325958904747259
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 1.1038317999991705,
+          "inference_ms_per_window": 0.09842580643195223
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 1.0366465000006428,
+          "inference_ms_per_window": 0.0944122806877682
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.8245521999997436,
+          "inference_ms_per_window": 0.041236571435417445
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 1.0187078999988444,
+          "inference_ms_per_window": 0.14021249996533566
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 1.2189530999967246,
+          "inference_ms_per_window": 0.09617466668714769
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.8704859999998007,
+          "inference_ms_per_window": 0.0683661538529962
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.8306984999981069,
+          "inference_ms_per_window": 0.04001796115667319
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 1.2130308000014338,
+          "inference_ms_per_window": 0.05970955055417608
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.8669731999980286,
+          "inference_ms_per_window": 0.054512499991687946
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.912112200003321,
+          "inference_ms_per_window": 0.05820000003139679
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 1.070596099998511,
+          "inference_ms_per_window": 0.08639729728472319
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 1.0816635999981372,
+          "inference_ms_per_window": 0.1380999999941866
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.9153707000004943,
+          "inference_ms_per_window": 0.049129378531189996
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 1.0972580000016023,
+          "inference_ms_per_window": 0.06201839999994263
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 1.0172334000017145,
+          "inference_ms_per_window": 0.04922087912116414
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 0.8505961000009847,
+          "inference_ms_per_window": 0.23601212127356452
+        }
+      ]
+    },
+    "KNN 5": {
+      "accuracy": 0.5,
+      "macro_f1": 0.46688806091967755,
+      "confusion_matrix": [
+        [
+          207,
+          46,
+          74
+        ],
+        [
+          60,
+          87,
+          430
+        ],
+        [
+          84,
+          243,
+          643
+        ]
+      ],
+      "classification_report": {
+        "0": {
+          "precision": 0.5897435897435898,
+          "recall": 0.6330275229357798,
+          "f1-score": 0.6106194690265486,
+          "support": 327.0
+        },
+        "1": {
+          "precision": 0.23138297872340424,
+          "recall": 0.15077989601386482,
+          "f1-score": 0.1825813221406086,
+          "support": 577.0
+        },
+        "2": {
+          "precision": 0.5605928509154315,
+          "recall": 0.6628865979381443,
+          "f1-score": 0.6074633915918753,
+          "support": 970.0
+        },
+        "accuracy": 0.5,
+        "macro avg": {
+          "precision": 0.4605731397941419,
+          "recall": 0.4822313389625963,
+          "f1-score": 0.46688806091967755,
+          "support": 1874.0
+        },
+        "weighted avg": {
+          "precision": 0.4643165410659161,
+          "recall": 0.5,
+          "f1-score": 0.4771939589599422,
+          "support": 1874.0
+        }
+      },
+      "folds": [
+        {
+          "held_session": "roomA_0p_t01",
+          "fit_seconds": 0.002806399999826681,
+          "inference_ms_per_window": 0.01190547945579093
+        },
+        {
+          "held_session": "roomA_0p_t02",
+          "fit_seconds": 0.0011228000003029592,
+          "inference_ms_per_window": 0.008865322577607472
+        },
+        {
+          "held_session": "roomA_0p_t04",
+          "fit_seconds": 0.0010920999993686564,
+          "inference_ms_per_window": 0.012719298275330578
+        },
+        {
+          "held_session": "roomA_1p_t01",
+          "fit_seconds": 0.0010331000012229197,
+          "inference_ms_per_window": 0.00742457141833646
+        },
+        {
+          "held_session": "roomA_1p_t02",
+          "fit_seconds": 0.0009820000013860408,
+          "inference_ms_per_window": 0.01211607143756867
+        },
+        {
+          "held_session": "roomA_1p_t03",
+          "fit_seconds": 0.003051499999855878,
+          "inference_ms_per_window": 0.01912666669037814
+        },
+        {
+          "held_session": "roomA_1p_t04",
+          "fit_seconds": 0.0014200000005075708,
+          "inference_ms_per_window": 0.014364615400644163
+        },
+        {
+          "held_session": "roomA_1p_t05",
+          "fit_seconds": 0.0010333999998692889,
+          "inference_ms_per_window": 0.006884951448916837
+        },
+        {
+          "held_session": "roomA_2p_t01",
+          "fit_seconds": 0.0009719999980006833,
+          "inference_ms_per_window": 0.007092696618651082
+        },
+        {
+          "held_session": "roomA_2p_t02",
+          "fit_seconds": 0.001001599997835001,
+          "inference_ms_per_window": 0.010078749983222224
+        },
+        {
+          "held_session": "roomA_2p_t04",
+          "fit_seconds": 0.0009648000013839919,
+          "inference_ms_per_window": 0.012471084360240858
+        },
+        {
+          "held_session": "roomA_2p_t07",
+          "fit_seconds": 0.002925899996625958,
+          "inference_ms_per_window": 0.014305405440265187
+        },
+        {
+          "held_session": "roomA_2p_t08",
+          "fit_seconds": 0.0011061000004701782,
+          "inference_ms_per_window": 0.019734210486364503
+        },
+        {
+          "held_session": "roomA_2p_t09",
+          "fit_seconds": 0.0010278000008838717,
+          "inference_ms_per_window": 0.007891525435662634
+        },
+        {
+          "held_session": "roomA_2p_t10",
+          "fit_seconds": 0.001038200000039069,
+          "inference_ms_per_window": 0.009072799992281944
+        },
+        {
+          "held_session": "roomA_2p_t11",
+          "fit_seconds": 0.0010053999976662453,
+          "inference_ms_per_window": 0.007762087909293689
+        },
+        {
+          "held_session": "roomA_2p_t12",
+          "fit_seconds": 0.001470899998821551,
+          "inference_ms_per_window": 0.03139696965456207
+        }
+      ]
+    }
+  },
+  "selection_basis": "highest leave-one-recording-out macro-F1, then accuracy",
+  "selected_model": "Gradient Boosting",
+  "model_path": "..\\Results\\model_count.joblib",
+  "model_size_bytes": 1376208,
+  "training_window_count": 1874,
+  "training_recordings": [
+    "roomA_0p_t01",
+    "roomA_0p_t02",
+    "roomA_0p_t04",
+    "roomA_1p_t01",
+    "roomA_1p_t02",
+    "roomA_1p_t03",
+    "roomA_1p_t04",
+    "roomA_1p_t05",
+    "roomA_2p_t01",
+    "roomA_2p_t02",
+    "roomA_2p_t04",
+    "roomA_2p_t07",
+    "roomA_2p_t08",
+    "roomA_2p_t09",
+    "roomA_2p_t10",
+    "roomA_2p_t11",
+    "roomA_2p_t12"
+  ],
+  "provisional": false,
+  "probabilities_calibrated": false,
+  "notes": "CSI windows within a recording are correlated. Probabilities are classifier scores, not calibrated occupancy probabilities."
+}

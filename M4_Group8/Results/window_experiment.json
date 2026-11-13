@@ -1,0 +1,643 @@
+{
+  "data_dir": "..\\Data\\classroom",
+  "normalization": "B (rssi_mean centered on per-session median)",
+  "balance_train": true,
+  "configs": {
+    "window_1.0s": {
+      "sessions_per_class": {
+        "0": 3,
+        "1": 5,
+        "2": 9
+      },
+      "loso_3class": {
+        "Random Forest": {
+          "window_acc": 0.53948772678762,
+          "window_macro_f1": 0.5064659473701562,
+          "confusion_matrix": [
+            [
+              127,
+              128,
+              72
+            ],
+            [
+              43,
+              244,
+              290
+            ],
+            [
+              34,
+              296,
+              640
+            ]
+          ],
+          "recording_vote_acc": 0.5882352941176471
+        },
+        "SVM RBF": {
+          "window_acc": 0.5458911419423693,
+          "window_macro_f1": 0.5402862738338668,
+          "confusion_matrix": [
+            [
+              266,
+              34,
+              27
+            ],
+            [
+              74,
+              172,
+              331
+            ],
+            [
+              111,
+              274,
+              585
+            ]
+          ],
+          "recording_vote_acc": 0.7058823529411765
+        },
+        "Logistic Regression": {
+          "window_acc": 0.4375667022411953,
+          "window_macro_f1": 0.42839976297662735,
+          "confusion_matrix": [
+            [
+              208,
+              81,
+              38
+            ],
+            [
+              125,
+              117,
+              335
+            ],
+            [
+              108,
+              367,
+              495
+            ]
+          ],
+          "recording_vote_acc": 0.5294117647058824
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.608324439701174,
+          "window_macro_f1": 0.5637081692625868,
+          "confusion_matrix": [
+            [
+              132,
+              109,
+              86
+            ],
+            [
+              30,
+              267,
+              280
+            ],
+            [
+              21,
+              208,
+              741
+            ]
+          ],
+          "recording_vote_acc": 0.5882352941176471
+        }
+      },
+      "loso_binary": {
+        "Random Forest": {
+          "window_acc": 0.847385272145144,
+          "window_macro_f1": 0.6817262994871649,
+          "confusion_matrix": [
+            [
+              118,
+              209
+            ],
+            [
+              77,
+              1470
+            ]
+          ],
+          "recording_vote_acc": 0.8823529411764706
+        },
+        "SVM RBF": {
+          "window_acc": 0.8697972251867663,
+          "window_macro_f1": 0.803227161309868,
+          "confusion_matrix": [
+            [
+              270,
+              57
+            ],
+            [
+              187,
+              1360
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        },
+        "Logistic Regression": {
+          "window_acc": 0.8100320170757738,
+          "window_macro_f1": 0.7155613615317318,
+          "confusion_matrix": [
+            [
+              219,
+              108
+            ],
+            [
+              248,
+              1299
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.8762006403415155,
+          "window_macro_f1": 0.7450848411646751,
+          "confusion_matrix": [
+            [
+              149,
+              178
+            ],
+            [
+              54,
+              1493
+            ]
+          ],
+          "recording_vote_acc": 0.8823529411764706
+        }
+      }
+    },
+    "window_2.0s": {
+      "sessions_per_class": {
+        "0": 3,
+        "1": 5,
+        "2": 9
+      },
+      "loso_3class": {
+        "Random Forest": {
+          "window_acc": 0.4120819848975189,
+          "window_macro_f1": 0.38828082565303634,
+          "confusion_matrix": [
+            [
+              45,
+              88,
+              28
+            ],
+            [
+              27,
+              93,
+              166
+            ],
+            [
+              15,
+              221,
+              244
+            ]
+          ],
+          "recording_vote_acc": 0.29411764705882354
+        },
+        "SVM RBF": {
+          "window_acc": 0.5631067961165048,
+          "window_macro_f1": 0.5562448483796798,
+          "confusion_matrix": [
+            [
+              129,
+              25,
+              7
+            ],
+            [
+              30,
+              78,
+              178
+            ],
+            [
+              36,
+              129,
+              315
+            ]
+          ],
+          "recording_vote_acc": 0.7058823529411765
+        },
+        "Logistic Regression": {
+          "window_acc": 0.3959007551240561,
+          "window_macro_f1": 0.4107676369350423,
+          "confusion_matrix": [
+            [
+              98,
+              56,
+              7
+            ],
+            [
+              41,
+              43,
+              202
+            ],
+            [
+              28,
+              226,
+              226
+            ]
+          ],
+          "recording_vote_acc": 0.47058823529411764
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.3333333333333333,
+          "window_macro_f1": 0.3252224102331169,
+          "confusion_matrix": [
+            [
+              50,
+              86,
+              25
+            ],
+            [
+              34,
+              41,
+              211
+            ],
+            [
+              15,
+              247,
+              218
+            ]
+          ],
+          "recording_vote_acc": 0.29411764705882354
+        }
+      },
+      "loso_binary": {
+        "Random Forest": {
+          "window_acc": 0.8306364617044228,
+          "window_macro_f1": 0.6628020935421315,
+          "confusion_matrix": [
+            [
+              58,
+              103
+            ],
+            [
+              54,
+              712
+            ]
+          ],
+          "recording_vote_acc": 0.8235294117647058
+        },
+        "SVM RBF": {
+          "window_acc": 0.9061488673139159,
+          "window_macro_f1": 0.8497330935989045,
+          "confusion_matrix": [
+            [
+              136,
+              25
+            ],
+            [
+              62,
+              704
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        },
+        "Logistic Regression": {
+          "window_acc": 0.8651564185544768,
+          "window_macro_f1": 0.7859055157390624,
+          "confusion_matrix": [
+            [
+              119,
+              42
+            ],
+            [
+              83,
+              683
+            ]
+          ],
+          "recording_vote_acc": 1.0
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.8759439050701187,
+          "window_macro_f1": 0.7530079029130263,
+          "confusion_matrix": [
+            [
+              79,
+              82
+            ],
+            [
+              33,
+              733
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        }
+      }
+    },
+    "window_2.5s": {
+      "sessions_per_class": {
+        "0": 3,
+        "1": 5,
+        "2": 9
+      },
+      "loso_3class": {
+        "Random Forest": {
+          "window_acc": 0.4209809264305177,
+          "window_macro_f1": 0.40076252429864273,
+          "confusion_matrix": [
+            [
+              41,
+              74,
+              13
+            ],
+            [
+              30,
+              77,
+              118
+            ],
+            [
+              18,
+              172,
+              191
+            ]
+          ],
+          "recording_vote_acc": 0.4117647058823529
+        },
+        "SVM RBF": {
+          "window_acc": 0.5272479564032697,
+          "window_macro_f1": 0.5420754392261468,
+          "confusion_matrix": [
+            [
+              107,
+              18,
+              3
+            ],
+            [
+              24,
+              68,
+              133
+            ],
+            [
+              29,
+              140,
+              212
+            ]
+          ],
+          "recording_vote_acc": 0.5882352941176471
+        },
+        "Logistic Regression": {
+          "window_acc": 0.41825613079019075,
+          "window_macro_f1": 0.438061097119585,
+          "confusion_matrix": [
+            [
+              92,
+              30,
+              6
+            ],
+            [
+              38,
+              44,
+              143
+            ],
+            [
+              28,
+              182,
+              171
+            ]
+          ],
+          "recording_vote_acc": 0.35294117647058826
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.40054495912806537,
+          "window_macro_f1": 0.3791780467109172,
+          "confusion_matrix": [
+            [
+              44,
+              66,
+              18
+            ],
+            [
+              23,
+              42,
+              160
+            ],
+            [
+              12,
+              161,
+              208
+            ]
+          ],
+          "recording_vote_acc": 0.29411764705882354
+        }
+      },
+      "loso_binary": {
+        "Random Forest": {
+          "window_acc": 0.8079019073569482,
+          "window_macro_f1": 0.6128387857022614,
+          "confusion_matrix": [
+            [
+              36,
+              92
+            ],
+            [
+              49,
+              557
+            ]
+          ],
+          "recording_vote_acc": 0.7647058823529411
+        },
+        "SVM RBF": {
+          "window_acc": 0.8828337874659401,
+          "window_macro_f1": 0.8189525612344404,
+          "confusion_matrix": [
+            [
+              106,
+              22
+            ],
+            [
+              64,
+              542
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        },
+        "Logistic Regression": {
+          "window_acc": 0.840599455040872,
+          "window_macro_f1": 0.7452862926547137,
+          "confusion_matrix": [
+            [
+              84,
+              44
+            ],
+            [
+              73,
+              533
+            ]
+          ],
+          "recording_vote_acc": 0.8823529411764706
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.8160762942779292,
+          "window_macro_f1": 0.6141280009345976,
+          "confusion_matrix": [
+            [
+              34,
+              94
+            ],
+            [
+              41,
+              565
+            ]
+          ],
+          "recording_vote_acc": 0.8235294117647058
+        }
+      }
+    },
+    "window_3.5s": {
+      "sessions_per_class": {
+        "0": 3,
+        "1": 5,
+        "2": 9
+      },
+      "loso_3class": {
+        "Random Forest": {
+          "window_acc": 0.42994241842610365,
+          "window_macro_f1": 0.4415833391841872,
+          "confusion_matrix": [
+            [
+              42,
+              44,
+              5
+            ],
+            [
+              17,
+              57,
+              87
+            ],
+            [
+              11,
+              133,
+              125
+            ]
+          ],
+          "recording_vote_acc": 0.47058823529411764
+        },
+        "SVM RBF": {
+          "window_acc": 0.4971209213051823,
+          "window_macro_f1": 0.5264678341601418,
+          "confusion_matrix": [
+            [
+              76,
+              12,
+              3
+            ],
+            [
+              20,
+              45,
+              96
+            ],
+            [
+              11,
+              120,
+              138
+            ]
+          ],
+          "recording_vote_acc": 0.5294117647058824
+        },
+        "Logistic Regression": {
+          "window_acc": 0.45489443378119004,
+          "window_macro_f1": 0.47608009945672985,
+          "confusion_matrix": [
+            [
+              66,
+              24,
+              1
+            ],
+            [
+              25,
+              34,
+              102
+            ],
+            [
+              9,
+              123,
+              137
+            ]
+          ],
+          "recording_vote_acc": 0.35294117647058826
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.45297504798464494,
+          "window_macro_f1": 0.47681395259474746,
+          "confusion_matrix": [
+            [
+              58,
+              27,
+              6
+            ],
+            [
+              19,
+              38,
+              104
+            ],
+            [
+              4,
+              125,
+              140
+            ]
+          ],
+          "recording_vote_acc": 0.5882352941176471
+        }
+      },
+      "loso_binary": {
+        "Random Forest": {
+          "window_acc": 0.8157389635316699,
+          "window_macro_f1": 0.6491582491582492,
+          "confusion_matrix": [
+            [
+              33,
+              58
+            ],
+            [
+              38,
+              392
+            ]
+          ],
+          "recording_vote_acc": 0.8235294117647058
+        },
+        "SVM RBF": {
+          "window_acc": 0.9021113243761996,
+          "window_macro_f1": 0.8451438062767724,
+          "confusion_matrix": [
+            [
+              77,
+              14
+            ],
+            [
+              37,
+              393
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        },
+        "Logistic Regression": {
+          "window_acc": 0.8944337811900192,
+          "window_macro_f1": 0.8329982224553428,
+          "confusion_matrix": [
+            [
+              75,
+              16
+            ],
+            [
+              39,
+              391
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        },
+        "Gradient Boosting": {
+          "window_acc": 0.8579654510556622,
+          "window_macro_f1": 0.7348709908125654,
+          "confusion_matrix": [
+            [
+              46,
+              45
+            ],
+            [
+              29,
+              401
+            ]
+          ],
+          "recording_vote_acc": 0.9411764705882353
+        }
+      }
+    }
+  }
+}

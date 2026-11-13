@@ -1,0 +1,58 @@
+{
+  "baseline12": {
+    "protocol": "leave_one_recording_out",
+    "accuracy": 0.5741728922091782,
+    "macro_f1": 0.5272180455238412,
+    "confusion_matrix": [
+      [
+        146,
+        60,
+        121
+      ],
+      [
+        18,
+        159,
+        400
+      ],
+      [
+        17,
+        182,
+        771
+      ]
+    ],
+    "recordings_per_class": {
+      "0": 3,
+      "1": 5,
+      "2": 9
+    },
+    "test_windows": 1874
+  },
+  "extended16": {
+    "protocol": "leave_one_recording_out",
+    "accuracy": 0.5485592315901814,
+    "macro_f1": 0.4657144758086907,
+    "confusion_matrix": [
+      [
+        90,
+        71,
+        166
+      ],
+      [
+        17,
+        158,
+        402
+      ],
+      [
+        13,
+        177,
+        780
+      ]
+    ],
+    "recordings_per_class": {
+      "0": 3,
+      "1": 5,
+      "2": 9
+    },
+    "test_windows": 1874
+  }
+}
