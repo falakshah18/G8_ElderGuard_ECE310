@@ -23,10 +23,9 @@ The occupancy label (0/1/2 people) is encoded in the filename: `roomX_Np_tNN.csv
 - Captures with SUSPECT/REJECT QC verdicts were re-recorded, never relabeled
   (enforced by `../Code/tools/check_captures.py`).
 
-## Range / reliability / failure-case captures
+## Range / reliability captures
 
 Additional captures supporting the M4 evaluation are described alongside their
 result files in `../Results/`:
 
 - `roomA_*_d1m/d3m/d5m` — link-range variants (RSSI + accuracy vs distance)
-- still-person and door-open captures — recorded failure cases for the error analysis

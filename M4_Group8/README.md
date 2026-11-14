@@ -8,7 +8,7 @@ laptop-side Python. Board A floods Wi-Fi packets; Board B captures Channel State
 Information (CSI); the laptop pipeline (parse → preprocess → 12+ features →
 Random Forest) classifies room occupancy live. The M4 release consolidates the
 M3 prototype into its final form with grouped cross-validation, reliability,
-latency and range measurements, an ablation study, and an error analysis.
+latency and range measurements, and an ablation study.
 
 ## Headline results (final numbers in Results/)
 
@@ -67,6 +67,5 @@ chain without hardware.
   eigen-spectrum; per-subcarrier Doppler statistics; measured PDR).
 - Range, reliability and latency measurements on the target link.
 - Ablation study: 12-feature baseline vs extended feature set.
-- Error analysis: failure cases recorded on purpose (still person, door open).
 
 See `Report/M4_Group8_Report.pdf` for the full analysis.

@@ -22,7 +22,7 @@ metrics generation.
 | `tools/check_captures.py` | Label-vs-signal QC gate |
 | `tools/train_model.py` | Trainer: LOSO over 7 models, writes model + report artifacts |
 | `tools/live_demo.py` | Live count / fall / binary modes; hardware or `--replay` |
-| `tools/m4_metrics.py` | **M4 evidence generator: validation, ablation, range, reliability, failure analysis** |
+| `tools/m4_metrics.py` | **M4 evidence generator: validation, ablation, range, reliability** |
 | `tools/run_own.py` | Own-data trainer (count / occupy tasks) |
 | `tools/make_fake_captures.py` | Synthetic CSV generator (fixtures, never results) |
 | `tools/selftest.py` | 9-stage no-hardware environment verification |

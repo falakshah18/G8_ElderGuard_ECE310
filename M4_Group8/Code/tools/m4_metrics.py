@@ -213,7 +213,7 @@ def main():
         print(f"[reliability] per-trial acc: mean={np.mean(accs):.3f} "
               f"min={min(accs):.3f} max={max(accs):.3f}")
 
-    # ---- failure analysis ------------------------------------------------------
+    # ---- per-session diagnostics ------------------------------------------------
     if fail_sessions:
         fails = []
         for s in fail_sessions:
