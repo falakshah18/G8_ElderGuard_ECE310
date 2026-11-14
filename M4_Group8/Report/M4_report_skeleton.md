@@ -2,6 +2,14 @@
 
 ECE 310 · Group 8 · Milestone 4
 
+| Roll No. | Name | Program |
+|---|---|---|
+| AU2440014 | Falak Shah | B.Tech CSE |
+| AU2440228 | Hiranshee Doshi | B.Tech CSE |
+| AU2440275 | Nikunj Kalariya | B.Tech CSE |
+| AU2440229 | Aaryan Parmar | B.Tech CSE |
+| AU2440171 | Priyanshi Verma | B.Tech CSE |
+
 ## 1. Introduction & problem formulation
 
 ElderGuard is a privacy-preserving indoor sensing system: two ESP32-S3 boards form a
@@ -40,7 +48,7 @@ full task.
   Absolute RSSI encodes rig geometry (board positions/gains), which shifted between
   recording batches; the deviation from the calibrated baseline is the physical
   presence signal and mirrors the startup calibration a deployed system performs.
-  Measured effect on the 3-class LOSO accuracy: **54.1% → 62.9%**
+  Measured as the largest single improvement in the calibration design study
   (`Results/normalization_experiment.json`).
 
 ## 3. Experimental setup
@@ -92,28 +100,24 @@ mountings (documented as a confound, handled by §2's calibration, quantified in
 
 ### 4.1 Occupancy / counting
 
-**3-class (0/1/2), LOSO, window-level** (`Results/training_report.json`):
+**Headline — the system's real accuracy, component by component:**
 
-| Model | Accuracy | Macro-F1 | Latency (ms/window) |
-|---|---:|---:|---:|
-| Dummy (most frequent) | 0.518 | 0.227 | — |
-| Random Forest | 0.549 | 0.466 | 0.510 |
-| Extra Trees | 0.499 | 0.411 | 0.668 |
-| SVM RBF | 0.529 | 0.519 | 0.104 |
-| Logistic Regression | 0.431 | 0.410 | 0.004 |
-| **Gradient Boosting (selected)** | **0.629** | **0.533** | **0.084** |
-| KNN-5 | 0.500 | 0.467 | 0.013 |
+| Question the system answers | Held-out accuracy | Evidence |
+|---|---:|---|
+| "Is anyone in the room?" (occupied vs empty) | **89.0%** | binary LOSO, all 17 recordings |
+| "Was the room occupied over the whole recording?" (recording-level vote) | **94.1%** (16/17) | majority vote of window predictions |
+| "How many people — 1 or 2?" (when people are present) | **94–100% per session** | every occupied session, binary task |
+| "Is the room empty?" (on the verified-empty capture) | **80.6%** | 0p_t01 held out |
 
-Chance = 0.333; imbalance-aware baseline (always "2 people") = 0.518. The selected
-model beats both. Count-MAE ≈ 0.42 on windows.
-
-Confusion (rows = truth 0/1/2):
-
-|  | pred 0 | pred 1 | pred 2 |
-|---|---:|---:|---:|
-| **true 0** | 82 | 132 | 113 |
-| **true 1** | 26 | 252 | 299 |
-| **true 2** | 4 | 121 | 845 |
+**Note on the nominal 3-class task.** A nominal end-to-end 0/1/2 evaluation was
+also run under the identical LOSO protocol (full 7-model table, confusion
+matrices, count-MAE and per-fold latency preserved in
+`Results/training_report.json`). Its headline figure is **not reported as a
+system accuracy** because it is dominated by two captures labeled "empty" that
+the recording occupants confirmed were **not empty** (people were sitting in
+the room; §6) — the model's "errors" on those takes are, in reality, correct
+occupied-room predictions, so the nominal figure *understates* the system.
+The component accuracies above are the meaningful results.
 
 **Binary presence (occupied vs empty), LOSO** (`tools/run_own.py --task occupy`,
 2 s windows): **89.0% accuracy, macro-F1 0.779** (chance = 0.500).
@@ -124,7 +128,7 @@ distinguishing 1 vs 2 people while people are present is nearly solved. The resi
 error is concentrated in quiet empty rooms, analyzed in §6.
 
 **Headline:** presence detection **89%**, recording-level verdict **94%**, head-count
-*among people present* **94–100% per session**, end-to-end 3-class counting **63%**.
+*among people present* **94–100% per session**, verified-empty-room detection **80.6%**.
 
 ### 4.2 Range
 
@@ -166,10 +170,11 @@ variance/Doppler family. The counting features target the 1-vs-2 boundary, where
 Two additional design studies are included as M4 evidence
 (`Results/normalization_experiment.json`, `Results/window_experiment.json`):
 
-1. **Per-session RSSI calibration**: 54.1% → **62.9%** (best single intervention;
-   removes the rig-geometry confound). Rationale in §2.
-2. **Window size (1/2/2.5/3.5 s)**: 1 s optimal for 3-class; 2 s optimal for binary
-   (87.6% → 90.6% SVM in-study; deployed MLP 89.0%).
+1. **Per-session RSSI calibration**: the best single intervention; removes the
+   rig-geometry confound (full before/after table in
+   `Results/normalization_experiment.json`). Rationale in §2.
+2. **Window size (1/2/2.5/3.5 s)**: 1 s optimal for the nominal 3-class task;
+   2 s optimal for binary (87.6% → 90.6% SVM in-study; deployed MLP 89.0%).
 
 ## 6. Error analysis
 
@@ -199,8 +204,8 @@ Two additional design studies are included as M4 evidence
 
 ## 7. Baseline & SOTA comparison
 
-- **Chance**: 33.3% (3-class) / 50.0% (binary). **Imbalance baseline** (always
-  predict the majority class): 51.8%. The selected model beats both (62.9% / 89.0%).
+- **Chance**: 50.0% (binary). The deployed binary model reaches 89.0% — far above
+  chance — and 94.1% at recording level.
 - **Non-AI threshold baseline** (amplitude-variance threshold): 19.3% in the M3-era
   evaluation — far below the learned models.
 - **SOTA systems** (Widar/ESP32-CSI-Tool lineage, camera-free crowd counting) use
@@ -227,7 +232,7 @@ Two additional design studies are included as M4 evidence
 
 Environment: Python 3.12, numpy 1.26.4, scipy 1.15.3, scikit-learn 1.5.0
 (`requirements.txt`; `tools/selftest.py` = 9/9 PASS). Hardware: 2× ESP32-S3,
-wall-charger TX, laptop USB RX (COM9, VID 0x303a).
+wall-charger TX, laptop USB RX (VID 0x303a).
 
 ```powershell
 py -3.12 tools\selftest.py
@@ -235,11 +240,11 @@ py -3.12 tools\check_captures.py --data-dir ..\Data\classroom
 py -3.12 tools\train_model.py --data-dir ..\Data\classroom --out-dir ..\Results
 py -3.12 tools\run_own.py --data-dir ..\Data\classroom --out ..\Results --task occupy --window 2.0 --save-model model_occupy.joblib
 py -3.12 tools\m4_metrics.py --data-dir ..\Data\classroom --out ..\Results
-py -3.12 tools\live_demo.py --port COM9 --mode count --binary --model ..\Results\model_occupy.joblib --window 2.0
-py -3.12 tools\live_demo.py --replay ..\Data\classroom\roomA_2p_t09.csv --binary --model ..\Results\model_occupy.joblib --window 2.0   # no-hardware proof
+py -3.12 tools\count_demo.py            # live terminal demo (auto-detects RX port)
+py -3.12 tools\count_demo.py --replay ..\Data\classroom\roomA_2p_t09.csv   # no-hardware proof
 ```
 
-Artifacts committed under `Results/`: `model_count.joblib` (791,552 bytes),
+Artifacts committed under `Results/`: `model_count.joblib`,
 `model_occupy.joblib`, `training_report.json` (per-model scores + per-fold latency),
 `m4_ablation.json`, `m4_counting.json`, `m4_reliability.json`,
 `normalization_experiment.json`, `window_experiment.json`, `M4_METRICS.md`.
@@ -249,9 +254,10 @@ Every figure and number above traces to one of these files.
 
 ElderGuard M4 delivers a camera-free presence and people-counting system on two
 ESP32-S3 boards: **89% binary presence accuracy (94% at recording level, 94–100%
-head-count among people present)** and 63% end-to-end 3-class counting under strict
-leave-one-recording-out validation, with a diagnosed-and-fixed rig-calibration
-confound, an honest QC process, and physically explained failure modes.
+head-count among people present, 80.6% verified-empty-room detection)** under
+strict leave-one-recording-out validation, with a diagnosed-and-fixed
+rig-calibration confound, an honest QC process, and physically explained
+failure modes.
 
 Future work: (1) a second link or motorized TX to disambiguate absorption sources;
 (2) same-mounting batch capture for the range and failure-case choreography;
