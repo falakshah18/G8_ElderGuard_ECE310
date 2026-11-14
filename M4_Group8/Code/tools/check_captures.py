@@ -1,31 +1,4 @@
-#!/usr/bin/env python3
-"""ElderGuard capture quality control - run this BEFORE you train.
 
-A mislabelled recording cannot be fixed by any model. This tool reads each
-capture, measures how much motion the radio path actually saw, and compares it
-with the head-count written in the file name.
-
-Verdicts
-  OK      motion level matches the label
-  SUSPECT usable, but the room was quieter/livelier than the label suggests
-  REJECT  the label and the signal disagree - record this one again
-
-Rules are written against the amplitude-variance feature (the same number the
-threshold baseline and the models use), measured on real captures:
-
-  quiet empty room        median ~0.12, p90 ~0.23
-  one person moving       median 0.3 - 2.3, p90 3.7 - 5.6
-  something moving that should not have been: median > 0.5 in an empty room
-
-STILL captures (filename contains "still"): the person is present but
-motionless, so variance must be LOW (not high), and the QC gate instead checks
-link absorption: a body on the Tx-Rx line lowers the mean RSSI versus the
-empty-room captures. A still capture whose RSSI shows no absorption is
-invisible to the model - re-record with the person on the link.
-
-Usage:
-    python check_captures.py --data-dir PATH_TO_CSVS
-"""
 
 import argparse
 import glob
@@ -48,9 +21,9 @@ ap.add_argument("--busy-min", type=float, default=0.45,
 args = ap.parse_args()
 
 sys.path.insert(0, os.path.abspath(args.src))
-from parse_csi import load_esp32_csv                  # noqa: E402
-from preprocess import preprocess_session             # noqa: E402
-from features import featurize_session, FEATURE_NAMES  # noqa: E402
+from parse_csi import load_esp32_csv
+from preprocess import preprocess_session
+from features import featurize_session, FEATURE_NAMES
 
 VARI = FEATURE_NAMES.index("amp_var_mean")
 
@@ -85,7 +58,7 @@ for p in paths:
     rssi_mean = float(np.mean(rssi_arr)) if rssi_arr.size else 0.0
     rows.append((name, label, med, p90, busy, rssi_mean, None))
 
-# Empty-room RSSI baseline for the still-capture absorption check.
+
 empty_rssi = [r[5] for r in rows if r[1] == 0 and r[5] is not None]
 base_rssi = float(np.median(empty_rssi)) if empty_rssi else None
 
@@ -97,8 +70,8 @@ for name, label, med, p90, busy, rssi_mean, preset in rows:
         verdict = "OK" if med <= args.quiet_max else (
             "SUSPECT" if med <= 0.6 else "REJECT empty room was not quiet")
     elif "still" in name.lower():
-        # Still person: variance must NOT be high, and RSSI must show the
-        # person's absorption of the link versus the empty-room baseline.
+
+
         if p90 >= 3.0:
             verdict = "REJECT too much movement for a still capture"
         elif p90 >= 1.0:
@@ -114,7 +87,7 @@ for name, label, med, p90, busy, rssi_mean, preset in rows:
             else:
                 verdict = "REJECT still person invisible - record with them ON the link"
     else:
-        # someone was supposed to be moving: the path must show it
+
         verdict = "OK" if p90 >= args.busy_min else (
             "SUSPECT" if p90 >= 0.3 else "REJECT no motion seen for this label")
     if verdict.startswith("REJECT"):

@@ -1,23 +1,4 @@
-#!/usr/bin/env python3
-r"""
-ElderGuard video-demo display - "NO PERSON / ONE PERSON / TWO PEOPLE PRESENT".
 
-Deployment-style layer over the two trained models:
-
-  1. binary model (model_occupy.joblib, 2 s windows) answers "is anyone here?"
-  2. if occupied, the count model (model_count.joblib) answers "1 or 2?"
-
-Both models run on the SAME live feature window (2 s, per-session RSSI
-calibration). The displayed state is the majority vote of the last --smooth
-updates so the video shows a stable verdict instead of per-window flicker.
-This is standard deployment hysteresis, not a modification of the models.
-
-Usage (live hardware):
-    python tools/count_demo.py --port COM8
-
-No-hardware preview (replays a recorded capture through the exact live path):
-    python tools/count_demo.py --replay ../Data/classroom/roomA_2p_t09.csv
-"""
 
 import argparse
 import os
@@ -54,11 +35,11 @@ ap.add_argument("--no-clear", action="store_true", help="do not clear the screen
 args = ap.parse_args()
 
 sys.path.insert(0, os.path.abspath(args.src))
-import serial                                              # noqa: E402
-from eg_port import resolve_port                           # noqa: E402
-from parse_csi import parse_esp32_csi_data, _select_ht20_subcarriers  # noqa: E402
-from preprocess import preprocess_session                  # noqa: E402
-from features import featurize_session, FEATURE_NAMES      # noqa: E402
+import serial
+from eg_port import resolve_port
+from parse_csi import parse_esp32_csi_data, _select_ht20_subcarriers
+from preprocess import preprocess_session
+from features import featurize_session, FEATURE_NAMES
 import joblib
 
 if args.window > args.chunk:
@@ -77,9 +58,9 @@ def load_model(path, what):
         raise SystemExit(f"{what} not found: {path}\n"
                          f"Train it first (see README / report §9).")
     obj = joblib.load(path)
-    if isinstance(obj, dict) and "model" in obj:      # run_own artifact format
+    if isinstance(obj, dict) and "model" in obj:
         return obj["model"]
-    return obj                                        # bare estimator (train_model)
+    return obj
 
 
 model_binary = load_model(args.model_binary, "binary model")
@@ -89,7 +70,6 @@ RSSI_CAL = {"buf": deque(maxlen=240)}
 
 
 def read_row(line):
-    """CSI row -> (amp, phase, rssi) or None. Same parser as live_demo.py."""
     if not line.startswith("CSI"):
         return None
     parts = line.split(",", 17)
@@ -114,7 +94,6 @@ def read_row(line):
 
 
 def chunk_score(frames, phases, rssis, elapsed):
-    """One update period -> feature vector (last full window)."""
     rate = len(frames) / max(elapsed, 1e-3)
     if rate < 25.0:
         return None, rate
@@ -135,7 +114,6 @@ def chunk_score(frames, phases, rssis, elapsed):
 
 
 def predict_state(vec):
-    """(state_key, occupied_conf, count_conf) from the two models."""
     occ = int(model_binary.predict(vec[None, :])[0])
     occ_conf = 0.0
     if hasattr(model_binary, "predict_proba"):
@@ -305,7 +283,7 @@ def run_replay():
                 continue
             vec, rate = chunk_score(frames, phs, rss, len(frames) / fs)
             frames, phs, rss = [], [], []
-            time.sleep(args.chunk)          # real-time pace for the video
+            time.sleep(args.chunk)
             handle(vec, rate, history, log, None)
     print("\nReplay finished.")
 

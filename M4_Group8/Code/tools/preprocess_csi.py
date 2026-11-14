@@ -1,11 +1,4 @@
-#!/usr/bin/env python3
-"""Camera-free CSI preprocessing for one ElderGuard receiver CSV.
 
-Decodes the project's ESP32-S3 serial capture format, applies its existing
-Hampel/phase/band-pass pipeline, extracts per-window CSI features, and writes
-those features to a CSV. No image, video, webcam, or camera dependency.
-For model training and live prediction, use run_own.py/live_demo.py instead.
-"""
 
 import argparse
 import csv
@@ -17,9 +10,9 @@ ROOT = os.path.dirname(HERE)
 SRC = os.path.join(ROOT, "src")
 sys.path.insert(0, SRC)
 
-from parse_csi import load_esp32_csv  # noqa: E402
-from preprocess import preprocess_session  # noqa: E402
-from features import featurize_session, FEATURE_NAMES  # noqa: E402
+from parse_csi import load_esp32_csv
+from preprocess import preprocess_session
+from features import featurize_session, FEATURE_NAMES
 
 
 def main():

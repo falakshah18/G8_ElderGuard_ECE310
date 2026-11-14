@@ -1,20 +1,4 @@
-#!/usr/bin/env python3
-"""
-ElderGuard live demo, straight from the receiver board's serial port.
 
-  --mode count : real-time 0/1/2 occupancy using the model trained by run_own.py
-  --mode fall  : rule-based fall detector (motion burst, then prolonged still)
-
-    python live_demo.py --port COM7 --mode count --model model_rf.joblib
-    python live_demo.py --port COM7 --mode fall  --calib 45
-
-Rules of thumb:
-  * Keep the Arduino Serial Monitor CLOSED while this runs - a COM port can be
-    opened by only one program at a time.
-  * For fall mode, the first --calib seconds MUST be a still/empty room; the
-    script then learns the room's baseline noise.
-  * TX board must be flooding (its sketch running) or no CSI arrives.
-"""
 
 import argparse
 import os
@@ -62,16 +46,16 @@ if not args.replay and not args.port:
     ap.error("--port is required unless --replay is used")
 
 sys.path.insert(0, os.path.abspath(args.src))
-import serial                                          # noqa: E402
-from eg_port import resolve_port                       # noqa: E402
-from parse_csi import parse_esp32_csi_data, _select_ht20_subcarriers  # noqa: E402
-from preprocess import preprocess_session             # noqa: E402
-from features import featurize_session, FEATURE_NAMES  # noqa: E402
+import serial
+from eg_port import resolve_port
+from parse_csi import parse_esp32_csi_data, _select_ht20_subcarriers
+from preprocess import preprocess_session
+from features import featurize_session, FEATURE_NAMES
 
 if args.port and not args.replay:
     args.port = resolve_port(args.port)
 
-# count mode: rolling buffer of mean RSSI per update (≈ session link level)
+
 RSSI_CAL = {"buf": deque(maxlen=240)}
 
 if args.window > args.chunk:
@@ -100,7 +84,6 @@ def beep():
 
 
 def read_row(line):
-    """CSI row -> (amp, phase, rssi) or None."""
     if not line.startswith("CSI"):
         return None
     parts = line.split(",", 17)
@@ -113,13 +96,12 @@ def read_row(line):
     try:
         amp, phase = parse_esp32_csi_data(parts[17])
     except ValueError:
-        return None  # USB dropped a byte mid-row
+        return None
     if amp.size == 0:
         return None
     if amp.size > 64 and amp.size % 64 == 0:
-        # Firmware enables LLTF, HT-LTF, and STBC HT-LTF2; CSI vectors can
-        # contain one, two, or three 64-complex-sample LTF sections. Keep the
-        # first (LLTF) section consistently; do not pad/truncate arbitrarily.
+
+
         amp, phase = amp[:64], phase[:64]
     amp, phase = _select_ht20_subcarriers(amp, phase)
     if amp.size != 52:
@@ -128,11 +110,10 @@ def read_row(line):
 
 
 def chunk_score(frames, phases, rssis, elapsed):
-    """One update period of frames -> last 1 s feature window."""
     rate = len(frames) / max(elapsed, 1e-3)
     if rate < 25.0:
-        # Below this the 0.5-10 Hz band filter is impossible (Nyquist);
-        # almost always means the CSI stream stalled, not a slow room.
+
+
         print(f"... only {rate:.0f} frames/s - CSI stream too slow, waiting")
         return None
     fs = rate
@@ -140,9 +121,8 @@ def chunk_score(frames, phases, rssis, elapsed):
     ph = np.vstack(phases)
     r = np.asarray(rssis, dtype=float)
     if args.mode == "count":
-        # Per-session link calibration (matches training): the model sees
-        # rssi_mean relative to the running median link level, not the
-        # absolute dBm, because absolute RSSI encodes rig geometry.
+
+
         RSSI_CAL["buf"].append(float(np.mean(r)) if r.size else 0.0)
         covered = len(RSSI_CAL["buf"]) * args.chunk
         if covered < args.calib_rssi:
@@ -158,7 +138,6 @@ def chunk_score(frames, phases, rssis, elapsed):
 
 
 def open_stream():
-    """(Re)open the receiver port and wait until CSI rows are flowing."""
     while True:
         try:
             s = serial.Serial(args.port, args.baud, timeout=0.5)
@@ -166,8 +145,8 @@ def open_stream():
             print(f"waiting for {args.port} to reappear ...")
             time.sleep(2)
             continue
-        # Opening the CDC port asserts DTR/RTS which can park the board in
-        # the bootloader; release and pulse to reboot into the sketch.
+
+
         s.setDTR(False)
         s.setRTS(True)
         time.sleep(0.2)
@@ -197,7 +176,6 @@ def new_fall():
 
 
 def process(vec, now, fall, recent, stream=None):
-    """One update period. Shared byte-for-byte by live and replay paths."""
     v = float(vec[VARI_IDX])
 
     if args.mode == "count":
@@ -232,7 +210,7 @@ def process(vec, now, fall, recent, stream=None):
               f" RSSI={rssi:.0f}dBm quality={quality} | receiver=CONNECTED")
         return
 
-    # ---- fall mode ----
+
     baseline = fall["baseline"]
     if baseline is None:
         fall["calib_scores"].append(v)
@@ -283,8 +261,8 @@ def run_live():
             try:
                 line = ser.readline().decode("utf-8", errors="ignore").strip()
             except serial.SerialException:
-                # Board B's USB link dropped (cable/power glitch). The device
-                # re-enumerates within seconds; reconnect instead of dying.
+
+
                 print("!! USB link dropped - Board B reconnecting ...")
                 try:
                     ser.close()
@@ -330,7 +308,7 @@ def run_live():
 def _replay_fs(path):
     if args.replay_fs > 0:
         return args.replay_fs
-    # Same rule as parse_csi: strip ".csv" or the tag reads "fs60.csv".
+
     base = os.path.splitext(os.path.basename(path))[0]
     for token in base.replace("-", "_").split("_"):
         if token.startswith("fs") and token[2:].isdigit():

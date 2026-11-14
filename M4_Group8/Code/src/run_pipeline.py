@@ -1,21 +1,4 @@
-#!/usr/bin/env python3
-"""
-ElderGuard - end-to-end M2 pipeline entry point
-ECE 310 Group 8
 
-Usage
------
-Real dataset (RadioPoints, produces the reported results):
-
-    python run_pipeline.py --data-dir ../../Data/radiopoints --out ../../Results
-
-Synthetic self-test (no dataset needed; validates the whole chain):
-
-    python run_pipeline.py --synthetic --out /tmp/eg_synth
-
-Writes Results/metrics.json and regenerates the figures. The report is built
-from metrics.json by make_report.py.
-"""
 
 import argparse
 import json
@@ -26,10 +9,10 @@ import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from preprocess import preprocess_session          # noqa: E402
-from features import featurize_session, FEATURE_NAMES  # noqa: E402
-from evaluate import leave_one_session_out         # noqa: E402
-import synthetic as synth                          # noqa: E402
+from preprocess import preprocess_session
+from features import featurize_session, FEATURE_NAMES
+from evaluate import leave_one_session_out
+import synthetic as synth
 
 
 def load_sessions(args):
@@ -46,21 +29,12 @@ def load_sessions(args):
 
 def build_windows(sessions, window_s=1.0, overlap=0.5, max_people=2,
                   center_rssi=True):
-    """Slide every session into feature windows.
-
-    center_rssi: express the RSSI level relative to the session's own median
-    link level (per-session calibration baseline). Absolute RSSI encodes the
-    rig geometry (board positions, antenna gains), which changes whenever the
-    hardware is re-mounted; the deviation from the session baseline is the
-    physically meaningful presence signal. This mirrors what the deployed
-    system does: calibrate the link at startup, then react to changes.
-    """
     X, y, sid = [], [], []
     rssi_col = FEATURE_NAMES.index("rssi_mean")
     for s in sessions:
         label = s.get("label")
         if label is None or label > max_people:
-            continue  # M2 scope: 0/1/2 people
+            continue
         amp, phase = preprocess_session(
             s["amplitude"], s["phase"], s["fs"], do_phase=True
         )
@@ -111,15 +85,14 @@ def main():
         json.dump(results, fh, indent=2)
     print(f"Wrote {out_path}")
 
-    # Dump the feature matrix so figures (e.g. the amplitude-variance boxplot)
-    # can be regenerated from the same run.
+
     np.savez(os.path.join(args.out, "features.npz"), X=X, y=y, sid=sid)
 
     try:
         from make_figures import make_all_figures
         make_all_figures(out_path, args.out)
         print(f"Figures written to {args.out}")
-    except Exception as exc:  # figures are non-fatal
+    except Exception as exc:
         print(f"! figure generation skipped: {exc}")
 
 

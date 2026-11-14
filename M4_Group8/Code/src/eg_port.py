@@ -1,15 +1,3 @@
-"""Find the ElderGuard receiver port without guessing COM numbers.
-
-Every laptop gives the same board a different number (COM3, COM8, COM14...),
-so `--port auto` looks the board up by its USB vendor id instead:
-
-    0x303A  Espressif              -> the socket labelled USB  (what we use)
-    0x1A86  QinHeng CH340          -> the socket labelled COM
-    0x10C4  Silicon Labs CP210x    -> the socket labelled COM
-
-`--port COM8` still works exactly as before; only the word "auto" changes
-behaviour.
-"""
 
 import sys
 
@@ -29,7 +17,6 @@ def _fmt(p):
 
 
 def resolve_port(spec):
-    """Return a port name for open(). Aborts with a readable list if unsure."""
     if spec != "auto":
         return spec
     found = candidates()

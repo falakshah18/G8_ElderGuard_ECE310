@@ -1,17 +1,4 @@
-#!/usr/bin/env python3
-"""
-ElderGuard - generate FAKE captures in the exact CSV format that
-rx_esp32_csi.ino + collect_serial.py produce, so you can validate the whole
-Python chain (parse -> preprocess -> features -> models -> CV) BEFORE the
-hardware day. Nothing here touches the boards.
 
-    python make_fake_captures.py --out fake_captures
-    python run_own.py --data-dir fake_captures --out Results_fake --save-model model_rf.joblib
-
-Fake data is 64 subcarriers/frame at 100 Hz; motion amplitude/noise grows
-with the number of people, which is exactly the signal the amp-variance
-feature uses. Expected: accuracy well above the 0.333 chance level.
-"""
 
 import argparse
 import os
@@ -57,8 +44,8 @@ def write_csv(path, amp, phase, rssi):
             i8 = np.empty(2 * m, dtype=int)
             i8[0::2] = np.clip(np.round(amp[k] * np.sin(phase[k])), -127, 127)
             i8[1::2] = np.clip(np.round(amp[k] * np.cos(phase[k])), -127, 127)
-            # Match the real receiver's microsecond timestamp field; otherwise
-            # the parser correctly estimates an impossible 1 MHz rate.
+
+
             fh.write(f"CSI,1,{MAC},{rssi},0,1,7,0,1,1,0,0,0,0,0,0,{int(k / FS * 1e6) % 2**32},"
                      f"[{' '.join(str(v) for v in i8)}]\n")
 

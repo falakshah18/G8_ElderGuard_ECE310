@@ -1,29 +1,4 @@
-#!/usr/bin/env python3
-"""ElderGuard two-layer PRESENCE detector (M4) - the faculty-cabin product mode.
 
-Layer 1 - motion (fast):   amplitude variance vs calibrated empty-room baseline
-                           over ~2 s windows. Catches walking / moving people.
-Layer 2 - breathing (slow): 30 s window of mean CSI amplitude, detrended,
-                           FFT in the 0.15-0.6 Hz band. A standing spectral
-                           peak = a living, still human (DeMan, IEEE JSAC 2015).
-Presence = motion OR breathing. VACANT only when both layers are silent
-for --vacant-need consecutive updates.
-
-References:
-  - Wang et al., "Non-invasive Detection of Moving and Stationary Human"
-    (DeMan), IEEE JSAC 33(9), 2015: motion-only baselines misclassify a
-    large share of stationary humans as empty; a breathing layer restores
-    ~94-96% detection.
-  - Espressif esp-csi: vendor reference implementation of Wi-Fi presence
-    detection with on-site calibration on ESP32 hardware.
-
-Modes:
-  --replay CSV : run over a recorded capture (validation, no hardware)
-  --port auto  : live from the receiver board
-
-Example:
-  python tools/presence_demo.py --replay ../Data/classroom/roomA_1p_still_t01.csv
-"""
 
 import argparse
 import os
@@ -58,20 +33,11 @@ ap.add_argument("--vacant-need", type=int, default=3,
 args = ap.parse_args()
 
 sys.path.insert(0, os.path.abspath(args.src))
-from parse_csi import load_esp32_csv, parse_esp32_csi_data, _select_ht20_subcarriers  # noqa: E402
-from preprocess import preprocess_session  # noqa: E402
+from parse_csi import load_esp32_csv, parse_esp32_csi_data, _select_ht20_subcarriers
+from preprocess import preprocess_session
 
 
 def breath_snr(mean_amp, fs):
-    """Differential respiration SNR.
-
-    Peak power in the breathing band (0.15-0.6 Hz) divided by the peak
-    power in a CONTROL band (1.5-4 Hz). Room-wide disturbances (fan, AC,
-    link drift, motion) raise both bands together and cancel; a genuine
-    still-human breathing peak stands out only in the breathing band.
-    Uses RAW (Hampel-only) amplitude - a 0.5-10 Hz bandpass would erase
-    exactly the frequencies breathing lives in.
-    """
     need = int(args.breath_win * fs)
     if len(mean_amp) < max(need // 2, int(15 * fs)):
         return 0.0, 0.0
@@ -90,7 +56,6 @@ def breath_snr(mean_amp, fs):
 
 
 def analyse_frames(amp_stack, baseline_var):
-    """Return (motion, breath_snr_value, breath_hz, fs_est)."""
     fs = args.replay_fs if (args.replay and args.replay_fs) else 62.0
     a2, _ = preprocess_session(amp_stack, np.zeros_like(amp_stack),
                                fs, do_phase=False)
@@ -107,7 +72,7 @@ def replay(path):
     print(f"REPLAY {os.path.basename(path)}  label={s['label']}  "
           f"{n} frames @ {fs:.1f} Hz  ({n/fs:.0f} s)")
 
-    # motion baseline: first motion-calib seconds
+
     cal_n = int(args.motion_calib * fs)
     base_var = float(np.mean(np.var(s["amplitude"][:cal_n], axis=0)))
     print(f"motion baseline variance = {base_var:.3f} (from first {args.motion_calib:.0f} s)")
@@ -118,7 +83,7 @@ def replay(path):
     print(f"{'time':>6} {'motion':>7} {'breathSNR':>10} {'bpm':>6}  STATE")
     for start in range(0, n - w, step):
         chunk = s["amplitude"][start:start + w]
-        # Hampel only - NO 0.5-10 Hz bandpass (it would erase the breathing band)
+
         chunk = chunk.copy()
         med = np.median(chunk, axis=0)
         mad = np.median(np.abs(chunk - med), axis=0)

@@ -1,12 +1,4 @@
-#!/usr/bin/env python3
-"""ElderGuard LAB-DAY DRIVER - the only thing you need to run tomorrow.
 
-    python tools\\lab_day.py
-
-It guides the whole session: sanity check, every recording (with choreography
-instructions and auto-QC after each), then all analysis, then a final
-checklist. You only press ENTER when the room is ready and answer y/n.
-"""
 
 import os
 import subprocess
@@ -14,7 +6,7 @@ import sys
 import time
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-ROOT = os.path.normpath(os.path.join(HERE, "..", ".."))   # M4_Group8
+ROOT = os.path.normpath(os.path.join(HERE, "..", ".."))
 SRC = os.path.normpath(os.path.join(HERE, "..", "src"))
 DATA = os.path.normpath(os.path.join(ROOT, "Data", "classroom"))
 RESULTS = os.path.normpath(os.path.join(ROOT, "Results"))
@@ -22,7 +14,7 @@ PY = sys.executable
 
 sys.path.insert(0, SRC)
 
-# capture, label, seconds, choreography shown to the operator
+
 CAPTURES = [
     ("roomA_0p_t02.csv",      0, 90, "EMPTY room. Everyone out, door CLOSED. Stand still near the door."),
     ("roomA_1p_t02.csv",      1, 90, "ONE person walks slowly back and forth across the link. WHOLE time, never stops."),
@@ -67,7 +59,6 @@ def resolve_port_interactive():
 
 
 def qc_file(path):
-    """Run the QC tool, return the verdict for this one file."""
     r = sh([PY, os.path.join(HERE, "check_captures.py"),
             "--data-dir", os.path.dirname(path)],
            capture_output=True, text=True)

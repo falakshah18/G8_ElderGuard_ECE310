@@ -1,15 +1,4 @@
-#!/usr/bin/env python3
-"""Experiment: does session-baseline normalization improve LOSO accuracy?
 
-Motive: absolute RSSI / amplitude levels encode the rig geometry (board
-positions, gains), which changed between recording batches. A deployed
-system calibrates against its own empty-room baseline at startup, so the
-physically meaningful quantity is the DEVIATION from the session baseline,
-not the absolute level. This script tests that hypothesis honestly under
-the same LeaveOneRecordingOut protocol used by train_model.py.
-
-No data is modified; results are printed and saved to JSON.
-"""
 
 import glob
 import json
@@ -24,7 +13,7 @@ sys.path.insert(0, os.path.join(ROOT, "src"))
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from parse_csi import load_esp32_csv
-from run_pipeline import build_windows  # noqa: F401  (kept for parity check)
+from run_pipeline import build_windows
 from preprocess import preprocess_session
 from features import featurize_session, FEATURE_NAMES
 from train_model import models
@@ -71,7 +60,6 @@ VARIANTS = {
 
 
 def run_loso(session_blocks, seed=42, balance_train=False, drop_sessions=()):
-    """session_blocks: list of dicts {sid,label,X}. Returns per-model scores."""
     blocks = [b for b in session_blocks if b["sid"] not in drop_sessions]
     model_set = models(seed)
     scores = {}
@@ -82,7 +70,7 @@ def run_loso(session_blocks, seed=42, balance_train=False, drop_sessions=()):
             train_blocks = [b for b in blocks if b["sid"] != held["sid"]]
             labs = {b["label"] for b in train_blocks}
             if labs != {0, 1, 2}:
-                continue  # fold would leave a class unrepresented in training
+                continue
             Xtr = np.vstack([b["X"] for b in train_blocks])
             ytr = np.concatenate([np.full(b["X"].shape[0], b["label"]) for b in train_blocks])
             if balance_train:
@@ -141,7 +129,7 @@ def main():
         dummy = scores.get("Dummy most_frequent", {}).get("accuracy", 0)
         print(f"  (dummy most_frequent acc={dummy:.3f})")
 
-    # best normalization + training-window balancing
+
     best_v = max(results["variants"], key=lambda v: results["variants"][v]["scores"][results["variants"][v]["best"]]["accuracy"])
     cols = VARIANTS[best_v]
     blocks = []
@@ -156,8 +144,7 @@ def main():
     for n, sc in sorted(scores_bal.items(), key=lambda kv: -kv[1]["accuracy"]):
         print(f"  {n:24s} acc={sc['accuracy']:.3f} macroF1={sc['macro_f1']:.3f}")
 
-    # best normalization, dropping the anomalous 2p_t07 (rssi -41.4, stronger
-    # than any empty-room baseline -> radio-signature contradicts its label)
+
     blocks_no_t07 = [b for b in blocks if b["sid"] != "roomA_2p_t07.csv"]
     scores_no = run_loso(blocks_no_t07)
     results["variants"][best_v + " + drop_2p_t07"] = {"scores": scores_no}

@@ -1,21 +1,4 @@
-#!/usr/bin/env python3
-"""
-ElderGuard - train + evaluate occupancy counting on YOUR OWN ESP32 captures.
 
-The repo's run_pipeline.py only knows the RadioPoints dataset or synthetic
-sessions. This script runs the exact same chain (preprocess -> features ->
-threshold / Random Forest / MLP -> leave-one-session-out CV) on CSV files
-produced by collect_serial.py from your receiver board.
-
-Filename convention (encodes the ground truth):
-    room<Name>_<N>p[_anything].csv     with <N> in {0, 1, 2}
-    e.g.  room1_0p_t01_fs60.csv, room1_2p_t05_fs60.csv
-    Optional sampling rate: add _fs100 anywhere in the name (default 100).
-
-Usage (from build-help/tools, or adjust --src):
-    python run_own.py --data-dir PATH_TO_CSVS --out PATH_TO_RESULTS
-Also saves the best cross-validated model to --save-model for the live demo.
-"""
 
 import argparse
 import glob
@@ -45,11 +28,11 @@ ap.add_argument("--save-model", default=None, help="e.g. model_rf.joblib")
 args = ap.parse_args()
 
 sys.path.insert(0, os.path.abspath(args.src))
-from parse_csi import load_esp32_csv            # noqa: E402
-from run_pipeline import build_windows          # noqa: E402
-from evaluate import leave_one_session_out      # noqa: E402
-from features import FEATURE_NAMES              # noqa: E402
-from models import build_models                 # noqa: E402
+from parse_csi import load_esp32_csv
+from run_pipeline import build_windows
+from evaluate import leave_one_session_out
+from features import FEATURE_NAMES
+from models import build_models
 
 
 def main():
@@ -77,8 +60,8 @@ def main():
     X, y, sid = build_windows(sessions, args.window, args.overlap,
                               max_people=args.max_people)
     if args.task == "occupy":
-        # The 2-class question ("is anyone here?") is measurably easier than
-        # the head count, so it gets its own model and its own demo mode.
+
+
         y = (y > 0).astype(int)
     n_cls = len(np.unique(y))
     counts = np.bincount(y, minlength=n_cls)
@@ -119,8 +102,8 @@ def main():
 
     if args.save_model:
         import joblib
-        # Save the model that actually won the CV, not always the forest: the
-        # live demo is only as good as the artifact it loads.
+
+
         best_model = build_models()[best]
         best_model.fit(X, y)
         joblib.dump(best_model, args.save_model)

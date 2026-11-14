@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-"""Train and evaluate the 0/1/2 CSI classifier from labeled capture sessions.
 
-Validation is grouped by whole recording.
-"""
 
 import argparse
 import glob

@@ -1,12 +1,5 @@
 
-#!/usr/bin/env python3
-"""
-ElderGuard - ESP32-S3 CSI serial logger
-ECE 310 Group 8
 
-Laptop 1 = Receiver (RX), COM15
-Laptop 2 = Transmitter (TX), COM4
-"""
 
 import argparse
 import csv
@@ -21,10 +14,9 @@ MAX_RECONNECTS = 8
 
 
 def open_port(port, baud):
-    """Open the receiver serial port."""
     ser = serial.Serial(port, baud, timeout=1)
 
-    # Release serial control lines without forcing bootloader mode.
+
     ser.setDTR(False)
     ser.setRTS(False)
 
@@ -35,7 +27,6 @@ def open_port(port, baud):
 
 
 def reconnect(port, baud):
-    """Reconnect after a USB serial disconnection."""
     deadline = time.time() + RECONNECT_BUDGET
 
     while time.time() < deadline:
@@ -124,15 +115,14 @@ def main():
                     gaps.append(time.time() - last_data)
 
                     print("Reconnected. Waiting for CSV header again.")
-                    # Keep exactly one CSV header in the output stream. A
-                    # re-enumerated receiver may print its header again, but
-                    # that line is ignored once the file header exists.
+
+
                     continue
 
                 if not line:
                     continue
 
-                # Read the firmware header.
+
                 if line.startswith("type,"):
 
                     if not header_written:
@@ -146,7 +136,7 @@ def main():
 
                     continue
 
-                # Read CSI rows after the header.
+
                 if line.startswith("CSI,"):
 
                     if not header_written:
@@ -155,7 +145,7 @@ def main():
                         )
                         continue
 
-                    # Preserve the complete firmware CSI row.
+
                     fh.write(line + "\n")
                     frame_count += 1
                     last_data = time.time()
@@ -176,7 +166,7 @@ def main():
 
                     continue
 
-                # Display diagnostic messages from the ESP32.
+
                 if line.startswith("#") or "CSI enable" in line:
                     print(f"\nESP32: {line}")
 

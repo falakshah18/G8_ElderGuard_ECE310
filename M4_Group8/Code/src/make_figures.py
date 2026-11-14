@@ -1,19 +1,4 @@
-#!/usr/bin/env python3
-"""
-ElderGuard - figure generation (M2)
-ECE 310 Group 8
 
-Reads Results/metrics.json (and, when present, Results/features.npz) and
-writes the figures used in the report:
-
-    model_comparison.png
-    confusion_matrix_<model>.png      (one per model)
-    feature_importance.png
-    amp_variance_vs_people.png        (needs features.npz)
-
-Keeping the figures derived from metrics.json means the report and the plots
-can never drift apart.
-"""
 
 import json
 import os
@@ -29,7 +14,6 @@ CLASS_NAMES = ["0_people", "1_person", "2_people"]
 
 
 def models_present(results):
-    """MODEL_ORDER first, then any extra models a newer run added."""
     named = [m for m in MODEL_ORDER if m in results]
     extra = [k for k in results
              if not k.startswith("_") and k not in MODEL_ORDER]
@@ -78,7 +62,7 @@ def plot_confusion(name, cm, out_dir):
     fig.colorbar(im, ax=ax)
     fig.tight_layout()
     fname = f"confusion_matrix_{_slug(name)}.png"
-    # Keep the exact report filename for the threshold baseline.
+
     if name == "Threshold (amp-variance)":
         fname = "confusion_matrix_threshold_amp-variance.png"
     fig.savefig(os.path.join(out_dir, fname), dpi=150)
@@ -107,7 +91,7 @@ def plot_amp_variance_vs_people(features_path, out_dir):
         return False
     data = np.load(features_path)
     X, y = data["X"], data["y"]
-    col = X[:, 0]  # amp_var_mean
+    col = X[:, 0]
     groups = [col[y == c] for c in (0, 1, 2)]
     fig, ax = plt.subplots(figsize=(7, 4.5))
     ax.boxplot(groups, tick_labels=CLASS_NAMES, showfliers=True)

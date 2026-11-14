@@ -1,16 +1,4 @@
-#!/usr/bin/env python3
-"""ElderGuard M4 metrics generator - one command, all M4 evidence files.
 
-Produces (under --out):
-  m4_counting.json      counting model: LOSO (>=2 rec/class) or temporal holdout
-  m4_ablation.json      12-feature M3 baseline vs 16-feature M4 set, same protocol
-  m4_range.json         binary accuracy + RSSI vs board distance (d1m/d3m/d5m files)
-  m4_reliability.json   per-trial accuracy spread (needs >=2 trials per class)
-  m4_error_analysis.json recorded failure cases (still person / door open)
-  M4_METRICS.md         human-readable summary of all of the above
-
-Usage:  python tools/m4_metrics.py --data-dir ../Data/classroom --out ../Results
-"""
 
 import argparse
 import glob
@@ -36,9 +24,9 @@ ap.add_argument("--seed", type=int, default=42)
 args = ap.parse_args()
 
 sys.path.insert(0, os.path.abspath(args.src))
-from parse_csi import load_esp32_csv                 # noqa: E402
-from preprocess import preprocess_session            # noqa: E402
-from features import featurize_session, FEATURE_NAMES  # noqa: E402
+from parse_csi import load_esp32_csv
+from preprocess import preprocess_session
+from features import featurize_session, FEATURE_NAMES
 
 RANGE_RE = re.compile(r"_d(\d+)m", re.IGNORECASE)
 FAIL_RE = re.compile(r"_(still|door)_", re.IGNORECASE)
@@ -48,9 +36,8 @@ def windows(session, n_features):
     amp, ph = preprocess_session(session["amplitude"], session["phase"], session["fs"])
     f, _ = featurize_session(amp, ph, session["rssi"], session["fs"], 1.0, 0.5,
                              pdr=session.get("pdr", 1.0))
-    # Same per-session RSSI calibration as build_windows (rssi_mean relative
-    # to the recording's median link level); keeps every metrics file
-    # consistent with the trained pipeline.
+
+
     f = f.copy()
     f[:, FEATURE_NAMES.index("rssi_mean")] -= np.median(
         f[:, FEATURE_NAMES.index("rssi_mean")])
@@ -63,7 +50,6 @@ def fit_rf(seed):
 
 
 def temporal_holdout(feats_by_class, seed, train_frac=0.65, guard=3):
-    """Train on first train_frac of every capture, test on the rest."""
     Xtr, ytr, Xte, yte = [], [], [], []
     for c, stacks in feats_by_class.items():
         for f in stacks:
@@ -88,7 +74,6 @@ def temporal_holdout(feats_by_class, seed, train_frac=0.65, guard=3):
 
 
 def loso(feats_by_class, seed):
-    """Leave-one-recording-out over per-capture feature stacks."""
     trials = [(c, f) for c, stacks in feats_by_class.items() for f in stacks]
     if len(trials) < 4:
         return None
@@ -133,7 +118,7 @@ def main():
     if not sessions:
         raise SystemExit("no usable captures")
 
-    # feature stacks, once
+
     for s in sessions:
         s["_f16"] = windows(s, len(FEATURE_NAMES))
 
@@ -142,7 +127,7 @@ def main():
     range_sessions = [s for s in sessions if RANGE_RE.search(s["_name"])]
     fail_sessions = [s for s in sessions if FAIL_RE.search(s["_name"])]
 
-    # ---- counting + ablation on the main set --------------------------------
+
     def stacks(n):
         d = {}
         for s in main_sessions:
@@ -163,14 +148,14 @@ def main():
     with open(os.path.join(args.out, "m4_ablation.json"), "w") as fh:
         json.dump(results, fh, indent=2)
 
-    # the counting model used by range/reliability/failure sections
+
     best = loso(stacks(16), args.seed) or temporal_holdout(stacks(16), args.seed)
     counting = {k: v for k, v in best.items() if k != "model"}
     with open(os.path.join(args.out, "m4_counting.json"), "w") as fh:
         json.dump(counting, fh, indent=2)
     model = best["model"]
 
-    # ---- range test ----------------------------------------------------------
+
     if range_sessions:
         rng = []
         for s in range_sessions:
@@ -189,7 +174,7 @@ def main():
         with open(os.path.join(args.out, "m4_range.json"), "w") as fh:
             json.dump(sorted(rng, key=lambda x: x["distance_m"]), fh, indent=2)
 
-    # ---- reliability ----------------------------------------------------------
+
     by_class = {}
     for s in main_sessions:
         by_class.setdefault(s["label"], []).append(s)
@@ -213,7 +198,7 @@ def main():
         print(f"[reliability] per-trial acc: mean={np.mean(accs):.3f} "
               f"min={min(accs):.3f} max={max(accs):.3f}")
 
-    # ---- per-session diagnostics ------------------------------------------------
+
     if fail_sessions:
         fails = []
         for s in fail_sessions:
@@ -227,7 +212,7 @@ def main():
         with open(os.path.join(args.out, "m4_error_analysis.json"), "w") as fh:
             json.dump(fails, fh, indent=2)
 
-    # ---- markdown summary -------------------------------------------------------
+
     lines = ["# ElderGuard M4 metrics", "",
              f"Data: `{os.path.abspath(args.data_dir)}`  |  captures: {len(sessions)}"
              f" (main {len(main_sessions)}, range {len(range_sessions)}, failure {len(fail_sessions)})", ""]

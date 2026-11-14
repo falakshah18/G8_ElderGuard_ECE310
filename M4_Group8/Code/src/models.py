@@ -1,15 +1,3 @@
-"""
-ElderGuard - occupancy models (M2)
-ECE 310 Group 8
-
-Three models, matching the comparison in the report:
-  * ThresholdBaseline - non-AI reference on the single best feature
-                        (amplitude variance), the classic CSI occupancy rule.
-  * Random Forest     - 300 trees, the best model at M2.
-  * MLP               - 64-32 hidden units, standardised inputs.
-
-All three expose fit / predict so evaluate.py can treat them identically.
-"""
 
 import numpy as np
 from sklearn.ensemble import (
@@ -20,19 +8,12 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 
-from features import FEATURE_NAMES  # single source of truth for feature order
+from features import FEATURE_NAMES
 
 FEATURE_INDEX = {name: i for i, name in enumerate(FEATURE_NAMES)}
 
 
 class ThresholdBaseline:
-    """Single-feature threshold rule.
-
-    The feature is amplitude variance (feature 0). Thresholds are learned on
-    the training split by minimising 3-class error over the two cut points
-    that separate 0 / 1 / 2 people. This is the honest non-AI reference the
-    learned models must beat.
-    """
 
     def __init__(self, feature="amp_var_mean"):
         self.feature = feature
@@ -42,21 +23,21 @@ class ThresholdBaseline:
     def fit(self, X, y):
         col = X[:, FEATURE_INDEX[self.feature]]
         y = np.asarray(y)
-        # Candidate cut points = midpoints of sorted unique values.
+
         vals = np.unique(col)
         cands = (vals[:-1] + vals[1:]) / 2.0
-        if cands.size > 200:  # keep the search cheap on large datasets
+        if cands.size > 200:
             cands = np.quantile(cands, np.linspace(0, 1, 200))
         best = (None, None, -1.0)
         for i, lo in enumerate(cands):
-            # second cut only above the first
+
             for hi in cands[i + 1:]:
                 pred = np.digitize(col, [lo, hi])
                 acc = np.mean(pred == y)
                 if acc > best[2]:
                     best = (lo, hi, acc)
         self.t_low_, self.t_high_, _ = best
-        if self.t_low_ is None:  # degenerate single-value feature
+        if self.t_low_ is None:
             self.t_low_ = self.t_high_ = float(np.median(col))
         return self
 
@@ -75,7 +56,6 @@ def build_random_forest(n_estimators=300, random_state=42):
 
 
 def build_mlp(hidden=(64, 32), random_state=42):
-    """MLP wrapped in a scaler so raw feature magnitudes do not dominate."""
     return Pipeline(
         [
             ("scaler", StandardScaler()),
@@ -92,7 +72,6 @@ def build_mlp(hidden=(64, 32), random_state=42):
 
 
 def build_models():
-    """Fresh, unfitted model dict used by run_pipeline / evaluate."""
     return {
         "Threshold (amp-variance)": ThresholdBaseline("amp_var_mean"),
         "Random Forest": build_random_forest(),

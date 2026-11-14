@@ -1,10 +1,4 @@
-#!/usr/bin/env python3
-"""Validate ElderGuard CSI capture CSVs without changing the source files.
 
-Writes a Markdown and JSON report to Results/dataset_validation by default.
-Uses only the Python standard library; malformed records are counted and
-reported, never silently repaired or removed.
-"""
 
 import argparse
 import csv
@@ -111,7 +105,7 @@ def inspect_file(path):
         }
     result["vector_lengths"] = {str(k): v for k, v in sorted(vectors.items())}
     if stamps:
-        # Receiver timestamp is a device counter, not wall-clock time.
+
         backwards = sum(b < a for a, b in zip(stamps, stamps[1:]))
         raw_deltas = [b - a for a, b in zip(stamps, stamps[1:])]
         deltas = [d + 2**32 if d < -(2**31) else d for d in raw_deltas]

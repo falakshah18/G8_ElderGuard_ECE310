@@ -1,15 +1,4 @@
-#!/usr/bin/env python3
-"""Experiment 2: window size, training balance, recording-level voting, binary.
 
-Follows experiment_norm.py. All variants use the honest LeaveOneRecordingOut
-protocol. B-normalization (rssi_mean centered on per-session median) is always
-applied, since experiment 1 showed it is the strongest single improvement.
-
-Metrics reported per configuration:
-  - window-level accuracy / macro-F1 (same protocol as train_model.py)
-  - recording-level accuracy: all windows of the held-out recording vote;
-    correct if the majority prediction equals the recording's label.
-"""
 
 import glob
 import json
