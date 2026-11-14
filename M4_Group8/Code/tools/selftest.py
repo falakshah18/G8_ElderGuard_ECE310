@@ -20,7 +20,7 @@ REQUIRED = [
     "Code/src/eg_port.py", "Code/src/run_pipeline.py", "Code/src/synthetic.py",
     "Code/src/collect_serial.py",
     "Code/tools/run_own.py", "Code/tools/check_captures.py",
-    "Code/tools/live_demo.py", "Code/tools/make_fake_captures.py",
+    "Code/tools/live_demo.py",
     "Code/tools/selftest.py", "Code/tools/m4_metrics.py",
     "Code/firmware/tx_esp32_ap/tx_esp32_ap.ino",
     "Code/firmware/rx_esp32_csi/rx_esp32_csi.ino",
@@ -84,6 +84,48 @@ def write_capture(path, fs, seconds, profile):
     return n
 
 
+def write_fake_set(out_dir, seconds, trials):
+    import numpy as np
+    rng = np.random.default_rng(11)
+    FS, NSUB = 100.0, 64
+    header = ("type,channel,mac,rssi,rate,sig_mode,mcs,bandwidth,smoothing,"
+              "not_sounding,aggregation,stbc,fec_coding,sgi,ampdu_cnt,ant,"
+              "timestamp,data")
+    os.makedirs(out_dir, exist_ok=True)
+    total = 0
+    for label in (0, 1, 2):
+        for trial in range(1, 3 * trials + 1):
+            n_frames = int(seconds * FS)
+            t = np.arange(n_frames) / FS
+            base = rng.uniform(8.0, 40.0, NSUB)
+            amp = np.tile(base, (n_frames, 1))
+            for _ in range(label):
+                movers = rng.permutation(NSUB)[: NSUB // 2]
+                f = rng.uniform(0.5, 3.0)
+                amp[:, movers] += (4.0 + 3.0 * label) * np.abs(
+                    np.sin(2 * np.pi * f * t + rng.uniform(0, 6.28))
+                )[:, None]
+            amp += rng.normal(0.0, 1.0 + 0.8 * label, amp.shape)
+            amp = np.clip(amp, 0.0, 120.0)
+            phase = rng.normal(0.0, 0.2, amp.shape)
+            rssi = int(-40 - 5 * label + rng.normal(0, 2))
+            with open(os.path.join(out_dir,
+                                   f"room1_{label}p_trial{trial}_fs100.csv"),
+                      "w", newline="") as fh:
+                fh.write(header + "\n")
+                for k in range(n_frames):
+                    i8 = np.empty(2 * NSUB, dtype=int)
+                    i8[0::2] = np.clip(np.round(amp[k] * np.sin(phase[k])),
+                                       -127, 127)
+                    i8[1::2] = np.clip(np.round(amp[k] * np.cos(phase[k])),
+                                       -127, 127)
+                    fh.write(f"CSI,1,aa:bb:cc:dd:ee:01,{rssi},0,1,7,0,1,1,0,"
+                             f"0,0,0,0,0,{int(k / FS * 1e6) % 2**32},"
+                             f"[{' '.join(str(v) for v in i8)}]\n")
+            total += 1
+    return total
+
+
 @stage("1. python + libraries")
 def st_env():
     v = sys.version_info
@@ -133,10 +175,7 @@ def st_read():
 @stage("4. quality check runs")
 def st_qc():
     fake = os.path.join(TMP, "fake")
-    rc, out, tail = run([sys.executable, os.path.join(TOOLS, "make_fake_captures.py"),
-                         "--out", fake, "--seconds", "30", "--trials", "1"])
-    if rc != 0:
-        return False, "fake capture generator failed:\n      " + tail
+    n_gen = write_fake_set(fake, 30, 1)
     files = [x for x in os.listdir(fake) if x.endswith(".csv")]
     rc, out2, tail2 = run([sys.executable, os.path.join(TOOLS, "check_captures.py"),
                            "--data-dir", fake])

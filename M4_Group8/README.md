@@ -35,7 +35,7 @@ M4_Group8/
 │   └── M4_Group8_video_Link.md
 ├── Code/
 │   ├── src/             ← shared pipeline library (parse/preprocess/features/models/evaluate)
-│   ├── tools/           ← 14 command-line tools (validate, QC, train, live demo, self-test…)
+│   ├── tools/           ← 13 command-line tools (validate, QC, train, live demo, self-test…)
 │   └── requirements.txt ← exact pinned versions
 ├── Data/
 │   ├── README.md        ← capture format + collection protocol
